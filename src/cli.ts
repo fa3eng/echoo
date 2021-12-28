@@ -5,7 +5,7 @@ const program = new Command()
 
 program
   .option('-f, --force', 'Force a file to be generated, even though the file may already exist in the current path')
-  .option('-b, --built-in-templates', 'Using built-in templates')
+  .option('-e, --external-templates', 'Using external templates')
   .option('-p, --configuration-path <path>', 'Specifies the absolute path to the configuration file')
 
 program.parse()

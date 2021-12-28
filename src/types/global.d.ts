@@ -3,6 +3,6 @@
  */
 declare interface IOptionsConfig {
   force?: boolean
-  builtInTemplates?: boolean
+  externalTemplates?: boolean
   configurationPath?: string
 }

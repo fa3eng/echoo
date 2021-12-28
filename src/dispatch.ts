@@ -1,11 +1,11 @@
 const gen = function (optionsConfig: IOptionsConfig): void {
   const {
     force = false,
-    builtInTemplates = false,
+    externalTemplates = false,
     configurationPath = ''
   } = optionsConfig
 
-  console.log(force, builtInTemplates, configurationPath)
+  console.log(force, externalTemplates, configurationPath)
 }
 
 export { gen }
