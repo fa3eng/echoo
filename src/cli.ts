@@ -1,4 +1,5 @@
 import { Command } from 'commander'
+import { gen } from './dispatch'
 
 const program = new Command()
 
@@ -9,11 +10,13 @@ program
 
 program.parse()
 
+const optionsConfig = program.opts<IOptionsConfig>()
+
 program
   .command('gen')
   .description('Generating a template file')
   .action(() => {
-    console.log('gen')
+    gen(optionsConfig)
   })
 
 program

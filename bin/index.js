@@ -5,3 +5,4 @@ const { version } = require('../package.json')
 program
   .name('echoo')
   .version(version)
+  .parse()
