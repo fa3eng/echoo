@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "dev environment",
   "main": "index.js",
+  "bin": {
+    "ech": "bin/index.js"
+  },
   "scripts": {
-    "preinstall": "npx husky install",
-    "format": "ts-standard --fix"
+    "preinstall": "npx husky install && tsc && npm link",
+    "format": "ts-standard --fix",
+    "build": "ts-standard --fix && tsc",
+    "dev": "tsc",
+    "postbuild": "echo is ok",
+    "prestart": "npm run build",
+    "start": "npm link"
   },
   "keywords": [],
   "author": "meakle",
@@ -15,6 +23,7 @@
     "@commitlint/config-conventional": "^16.0.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.4",
+    "ts-node-dev": "^1.1.8",
     "ts-standard": "^11.0.0",
     "typescript": "4.4"
   },
@@ -23,5 +32,9 @@
   },
   "engines": {
     "node": ">=14.17.4"
+  },
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "commander": "^8.3.0"
   }
 }
