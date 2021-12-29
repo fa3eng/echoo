@@ -11,7 +11,7 @@
     "preinstall": "npx husky install && tsc && npm link",
     "format": "ts-standard --fix",
     "build": "ts-standard --fix && tsc",
-    "dev": "tsc",
+    "dev": "rm -fr dist && tsc",
     "postbuild": "echo is ok",
     "prestart": "npm run build",
     "start": "npm link"
