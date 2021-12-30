@@ -1,8 +1,9 @@
 const COMPONENT_PATH = 'page'
 
-module.exports = function generator (plop) {
-  plop.setGenerator('init',
+module.exports = function generator (echoo) {
+  echoo.setGenerator(
     {
+      name: 'init',
       description: '创建 component',
       prompts: [
         {

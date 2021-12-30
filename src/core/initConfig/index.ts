@@ -1,3 +1,4 @@
+import { IEchoorcConfig } from '../../types/actionType'
 import { externalEchooAPI, echooAPI } from '../index'
 
 type TypeGenerator = (configuration: typeof externalEchooAPI) => void
@@ -14,8 +15,8 @@ const generatorFuncEffect = function (echoorcFilePath: string): void {
   Generator(externalEchooAPI)
 }
 
-const setGeneratorEffect = function (generatorName: string, config: any): void {
-  echooAPI.setGeneratorMap(generatorName, config)
+const setGeneratorEffect = function (config: IEchoorcConfig): void {
+  echooAPI.setGeneratorMap(config.name, config)
 }
 
 export { generatorFuncEffect, setGeneratorEffect }
