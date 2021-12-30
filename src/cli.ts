@@ -1,5 +1,5 @@
 import { Command } from 'commander'
-import { gen } from './dispatch'
+import { gen } from './logic'
 
 const program = new Command()
 
