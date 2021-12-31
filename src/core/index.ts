@@ -5,6 +5,7 @@ import { generatorFuncEffect, setGeneratorEffect } from './initConfig'
 
 // #region core 中存储着 plop 的各项配置
 let echoorcFilePath = ''
+let force = false
 const generatorMap = new Map() as Map<string, IEchoorcConfig>
 
 let currentGenerator: IEchoorcConfig = {
@@ -16,6 +17,15 @@ let currentGenerator: IEchoorcConfig = {
 // #endregion
 
 // #region 各项配置的存取函数
+const getForce = function (): boolean {
+  return force
+}
+
+const setForce = function (f: boolean): boolean {
+  force = f
+  return force
+}
+
 const getEchoorcFilePath = function (): string {
   return echoorcFilePath
 }
@@ -51,6 +61,8 @@ const setCurrentGenerator = function (generatorName: string): IEchoorcConfig {
 // #endregion
 
 const echooAPI = {
+  getForce,
+  setForce,
   setEchoorcFilePath,
   getEchoorcFilePath,
   getGeneratorMap,
@@ -63,11 +75,15 @@ const externalEchooAPI = {
   setGenerator: setGeneratorEffect
 }
 
-export {
-  echooAPI,
-  externalEchooAPI,
+const effectEchooAPI = {
   getConfigFilePathEffect,
   setGeneratorEffect,
   generatorFuncEffect,
   createDispatchPrompt
+}
+
+export {
+  echooAPI,
+  externalEchooAPI,
+  effectEchooAPI
 }
