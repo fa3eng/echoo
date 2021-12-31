@@ -15,8 +15,8 @@ const optionsConfig = program.opts<IOptionsConfig>()
 program
   .command('gen')
   .description('Generating a template file')
-  .action(() => {
-    gen(optionsConfig)
+  .action(async () => {
+    await gen(optionsConfig)
   })
 
 program
