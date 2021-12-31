@@ -1,10 +1,11 @@
 import {
   getConfigFilePathEffect,
   generatorFuncEffect,
-  echooAPI
+  echooAPI,
+  createDispatchPrompt
 } from './core/index'
 
-const gen = function (optionsConfig: IOptionsConfig): void {
+const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
   const {
     force = false,
     externalTemplates = false,
@@ -14,12 +15,13 @@ const gen = function (optionsConfig: IOptionsConfig): void {
   console.log(force)
   // 获取配置文件路径, 该函数的副作用是
   getConfigFilePathEffect(externalTemplates, configurationPath)
-  console.log(echooAPI.getEchoorcFilePath())
 
   // 通过配置文件路径, 运行配置文件中的 Generator 函数, 副作用是将配置文件中的配置读取到 configurationCenter
   generatorFuncEffect(echooAPI.getEchoorcFilePath())
-  console.log(echooAPI.getGeneratorMap())
-  // console.log(configurationCenter.generatorMap)
+
+  await createDispatchPrompt(echooAPI.getGeneratorMap())
+
+  console.log(echooAPI.getCurrentGenerator())
 }
 
 export { gen }

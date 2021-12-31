@@ -1,4 +1,4 @@
-# DEV-enviroment
+# echoo
 
 * ES-lint/prettier -> standard
 * lint-staged
@@ -21,3 +21,4 @@
 # 提升
 
 * 涉及副作用的地方需要加上各种检查, 我觉得检查逻辑可以单独抽出文件
+* 很多防御性编程的地方在主要逻辑走完之后需要加上

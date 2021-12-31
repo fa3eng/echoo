@@ -1,9 +1,18 @@
+import { IEchoorcConfig } from '../types/actionType'
+import { createDispatchPrompt } from './dispatch'
 import { getConfigFilePathEffect } from './getConfigFilePath'
 import { generatorFuncEffect, setGeneratorEffect } from './initConfig'
 
 // #region core 中存储着 plop 的各项配置
 let echoorcFilePath = ''
-const generatorMap = new Map() as Map<string, Object>
+const generatorMap = new Map() as Map<string, IEchoorcConfig>
+
+let currentGenerator: IEchoorcConfig = {
+  name: '',
+  description: '',
+  prompts: [],
+  actions: []
+}
 // #endregion
 
 // #region 各项配置的存取函数
@@ -16,13 +25,27 @@ const setEchoorcFilePath = function (path: string): string {
   return echoorcFilePath
 }
 
-const getGeneratorMap = function (): Map<String, Object> {
+const getGeneratorMap = function (): Map<string, IEchoorcConfig> {
   return generatorMap
 }
 
-const setGeneratorMap = function (key: string, value: Object): Map<string, Object> {
+const setGeneratorMap = function (key: string, value: IEchoorcConfig): Map<string, IEchoorcConfig> {
   const genMap = generatorMap.set(key, value)
   return genMap
+}
+
+const getCurrentGenerator = function (): IEchoorcConfig {
+  return currentGenerator
+}
+
+const setCurrentGenerator = function (generatorName: string): IEchoorcConfig {
+  if (generatorMap.get(generatorName) == null) {
+    console.error('没有找到对应 generator')
+    process.exit(1)
+  }
+
+  currentGenerator = generatorMap.get(generatorName) as IEchoorcConfig
+  return currentGenerator
 }
 
 // #endregion
@@ -31,7 +54,9 @@ const echooAPI = {
   setEchoorcFilePath,
   getEchoorcFilePath,
   getGeneratorMap,
-  setGeneratorMap
+  setGeneratorMap,
+  getCurrentGenerator,
+  setCurrentGenerator
 }
 
 const externalEchooAPI = {
@@ -43,5 +68,6 @@ export {
   externalEchooAPI,
   getConfigFilePathEffect,
   setGeneratorEffect,
-  generatorFuncEffect
+  generatorFuncEffect,
+  createDispatchPrompt
 }
