@@ -1,5 +1,5 @@
 // 分发工具, 通过 generator 显示出对应的值
-import { echooAPI } from '..'
+import { configMap } from '..'
 import { createListPrompt } from '../../base'
 import { IEchoorcConfig } from '../../types/actionType'
 
@@ -17,7 +17,14 @@ const createDispatchPrompt = async function (
     choices: [...generatorMap.keys()]
   })
 
-  echooAPI.setCurrentGenerator(selectGeneratorName.generatorName)
+  if (configMap.get('generatorMap').get(selectGeneratorName.generatorName) == null) {
+    console.error('没有找到对应 generator')
+    process.exit(1)
+  }
+
+  const currentGenerator = configMap.get('generatorMap').get(selectGeneratorName.generatorName)
+
+  configMap.set('currentGenerator', currentGenerator)
 }
 
 export { createDispatchPrompt }

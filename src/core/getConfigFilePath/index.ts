@@ -1,4 +1,4 @@
-import { echooAPI } from '..'
+import { configMap } from '..'
 import ps from 'path'
 import { judgePathValidity } from './judgePathValidity'
 import { searchConfigFilePath } from './searchConfigFilePath'
@@ -12,12 +12,12 @@ const buildInEchoorcPath = ps.resolve(process.cwd(), 'built-in-template', 'echoo
  */
 const getConfigFilePathEffect = function (useExternalTemplates: boolean, configurationPath: string): string {
   if (configurationPath !== '' && judgePathValidity(configurationPath, 'echoorc')) {
-    echooAPI.setEchoorcFilePath(configurationPath)
+    configMap.set('echoorcFilePath', configurationPath)
     return configurationPath
   }
 
   if (!useExternalTemplates) {
-    echooAPI.setEchoorcFilePath(buildInEchoorcPath)
+    configMap.set('echoorcFilePath', buildInEchoorcPath)
     return buildInEchoorcPath
   }
 
@@ -32,7 +32,7 @@ const getConfigFilePathEffect = function (useExternalTemplates: boolean, configu
     console.warn('警告: 当前配置文件并不在cwd下, 建议将配置置于cwd')
   }
 
-  echooAPI.setEchoorcFilePath(path)
+  configMap.set('echoorcFilePath', path)
 
   return path
 }

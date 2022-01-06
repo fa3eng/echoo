@@ -1,5 +1,5 @@
 import { IEchoorcConfig } from '../../types/actionType'
-import { externalEchooAPI, echooAPI } from '../index'
+import { externalEchooAPI, configMap } from '../index'
 
 type TypeGenerator = (configuration: typeof externalEchooAPI) => void
 
@@ -24,7 +24,8 @@ const generatorFuncEffect = function (echoorcFilePath: string): void {
  * @param config 从配置文件中获取的配置
  */
 const setGeneratorEffect = function (config: IEchoorcConfig): void {
-  echooAPI.setGeneratorMap(config.name, config)
+  const generatorMap = configMap.get('generatorMap')
+  generatorMap.set(config.name, config)
 }
 
 export { generatorFuncEffect, setGeneratorEffect }

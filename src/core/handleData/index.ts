@@ -1,6 +1,6 @@
 // 这一层用于处理数据
 import { Answers } from 'inquirer'
-import { echooAPI } from '..'
+import { configMap } from '..'
 import { IEchoorcConfig } from '../../types/actionType'
 import { getDataByPrompt } from './getDataByPrompt'
 
@@ -17,7 +17,7 @@ const handleData = async function (currentGenerator: IEchoorcConfig): Promise<an
 
   const renderString = render(JSON.stringify(actionsArray), data)
 
-  echooAPI.setActionsResult(JSON.parse(renderString))
+  configMap.set('actionsResult', JSON.parse(renderString))
 }
 
 /** 一个简单的模板引擎
