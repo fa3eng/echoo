@@ -22,15 +22,15 @@ module.exports = function generator (echoo) {
         const { componentName, isCss } = data
 
         const actions = ['hello world']
-        const path = `src/${COMPONENT_PATH}/${componentName}`
+        const path = `src/${COMPONENT_PATH}/{{componentName}}`
 
         if (componentName) {
           actions.push({
             type: 'add',
-            path: `${path}/${componentName}.tsx`,
+            path: `${path}/{{componentName}}.tsx`,
             templateFile: './template/component/index.hbs',
             data: {
-              name: componentName
+              componentName: '{{ componentName }}'
             }
           })
         }

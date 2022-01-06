@@ -7,10 +7,15 @@ import { IEchoorcConfig } from '../../types/actionType'
  * 创建 generator 分发页面, 并且将获得的数据存储到数据中
  * @param generatorMap 生成器映射表
  */
-const createDispatchPrompt = async function (generatorMap: Map<string, IEchoorcConfig>): Promise<any> {
-  const selectGeneratorName = await createListPrompt('list', 'generatorName', '选择你想要使用的生成器', [
-    ...generatorMap.keys()
-  ])
+const createDispatchPrompt = async function (
+  generatorMap: Map<string, IEchoorcConfig>
+): Promise<any> {
+  const selectGeneratorName = await createListPrompt({
+    type: 'list',
+    name: 'generatorName',
+    message: '选择你想要使用的生成器',
+    choices: [...generatorMap.keys()]
+  })
 
   echooAPI.setCurrentGenerator(selectGeneratorName.generatorName)
 }

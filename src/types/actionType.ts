@@ -1,4 +1,4 @@
-import { QuestionCollection } from 'inquirer'
+import { QuestionCollection, Answers } from 'inquirer'
 
 /**
  * echoorc 中 config 的类型
@@ -21,7 +21,7 @@ interface IEchoorcConfig {
   name: string
   description: string
   prompts: QuestionCollection
-  actions: Array<IActionAdd | IActionAppend>
+  actions: Array<IActionAdd | IActionAppend> | ((data: Answers) => Array<IActionAdd | IActionAppend>)
 }
 
 export { IEchoorcConfig }

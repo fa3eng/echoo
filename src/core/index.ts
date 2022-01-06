@@ -1,6 +1,7 @@
 import { IEchoorcConfig } from '../types/actionType'
 import { createDispatchPrompt } from './dispatch'
 import { getConfigFilePathEffect } from './getConfigFilePath'
+import { handleData } from './handleData'
 import { generatorFuncEffect, setGeneratorEffect } from './initConfig'
 
 // #region core 中存储着 plop 的各项配置
@@ -14,6 +15,9 @@ let currentGenerator: IEchoorcConfig = {
   prompts: [],
   actions: []
 }
+
+let actionsResult: any[] = []
+
 // #endregion
 
 // #region 各项配置的存取函数
@@ -58,6 +62,15 @@ const setCurrentGenerator = function (generatorName: string): IEchoorcConfig {
   return currentGenerator
 }
 
+const getActionsResult = function (): any[] {
+  return actionsResult
+}
+
+const setActionsResult = function (arr: any): any {
+  actionsResult = arr
+  return actionsResult
+}
+
 // #endregion
 
 const echooAPI = {
@@ -68,7 +81,9 @@ const echooAPI = {
   getGeneratorMap,
   setGeneratorMap,
   getCurrentGenerator,
-  setCurrentGenerator
+  setCurrentGenerator,
+  getActionsResult,
+  setActionsResult
 }
 
 const externalEchooAPI = {
@@ -79,7 +94,8 @@ const effectEchooAPI = {
   getConfigFilePathEffect,
   setGeneratorEffect,
   generatorFuncEffect,
-  createDispatchPrompt
+  createDispatchPrompt,
+  handleData
 }
 
 export {
