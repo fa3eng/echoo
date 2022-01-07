@@ -1,4 +1,4 @@
-import { IEchoorcConfig } from '../../types/actionType'
+import { IEchoorcConfig } from '../../types'
 import { externalEchooAPI, configMap } from '../index'
 
 type TypeGenerator = (configuration: typeof externalEchooAPI) => void

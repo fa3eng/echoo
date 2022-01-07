@@ -1,4 +1,5 @@
 import { configMap, effectEchooAPI } from './core'
+import { IOptionsConfig } from './types'
 
 const {
   getConfigFilePathEffect,

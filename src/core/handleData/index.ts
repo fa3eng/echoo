@@ -1,7 +1,7 @@
 // 这一层用于处理数据
 import { Answers } from 'inquirer'
 import { configMap } from '..'
-import { IEchoorcConfig } from '../../types/actionType'
+import { IEchoorcConfig } from '../../types'
 import { getDataByPrompt } from './getDataByPrompt'
 
 const handleData = async function (currentGenerator: IEchoorcConfig): Promise<any> {

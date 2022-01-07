@@ -2,7 +2,7 @@
 
 import inquirer from 'inquirer'
 import { createListPrompt } from '../../../base'
-import { IEchoorcConfig } from '../../../types/actionType'
+import { IEchoorcConfig } from '../../../types'
 
 const getDataByPrompt = async function (currentGenerator: IEchoorcConfig): Promise<inquirer.Answers> {
   return await createListPrompt(currentGenerator.prompts)

@@ -1,7 +1,7 @@
 // 分发工具, 通过 generator 显示出对应的值
 import { configMap } from '..'
 import { createListPrompt } from '../../base'
-import { IEchoorcConfig } from '../../types/actionType'
+import { IEchoorcConfig } from '../../types'
 
 /**
  * 创建 generator 分发页面, 并且将获得的数据存储到数据中
@@ -17,12 +17,13 @@ const createDispatchPrompt = async function (
     choices: [...generatorMap.keys()]
   })
 
-  if (configMap.get('generatorMap').get(selectGeneratorName.generatorName) == null) {
+  const generatorMaps = configMap.get('generatorMap')
+  const currentGenerator = generatorMaps.get(selectGeneratorName.generatorName)
+
+  if (currentGenerator == null) {
     console.error('没有找到对应 generator')
     process.exit(1)
   }
-
-  const currentGenerator = configMap.get('generatorMap').get(selectGeneratorName.generatorName)
 
   configMap.set('currentGenerator', currentGenerator)
 }
