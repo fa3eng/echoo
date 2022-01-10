@@ -5,7 +5,8 @@ const {
   getConfigFilePathEffect,
   generatorFuncEffect,
   createDispatchPrompt,
-  handleData
+  handleData,
+  generateTemplate
 } = effectEchooAPI
 
 const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
@@ -30,6 +31,7 @@ const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
   await handleData(configMap.get('currentGenerator'))
 
   console.log(configMap.get('actionsResult'))
+  generateTemplate()
 }
 
 export { gen }

@@ -1,5 +1,6 @@
 import { IActionsResult, IConfigMap, IEchoorcConfig } from '../types'
 import { createDispatchPrompt } from './dispatch'
+import { generateTemplate } from './generateTemplate'
 import { getConfigFilePathEffect } from './getConfigFilePath'
 import { handleData } from './handleData'
 import { generatorFuncEffect, setGeneratorEffect } from './initConfig'
@@ -29,7 +30,8 @@ const effectEchooAPI = {
   setGeneratorEffect,
   generatorFuncEffect,
   createDispatchPrompt,
-  handleData
+  handleData,
+  generateTemplate
 }
 
 export {

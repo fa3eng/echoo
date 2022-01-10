@@ -17,14 +17,14 @@ declare interface IOptionsConfig {
 interface IActionAdd {
   type: string
   path: string
-  templateFile: string
+  templatePath: string
   data: Record<string, string>
 }
 interface IActionAppend {
   type: string
   path: string
   pattern: string
-  templateFile: string
+  templatePath: string
   data: Record<string, string>
 }
 
@@ -34,6 +34,17 @@ interface IEchoorcConfig {
   prompts: QuestionCollection
   actions: Array<IActionAdd | IActionAppend> | ((data: Answers) => Array<IActionAdd | IActionAppend>)
 }
+
+/**
+ * action 中的类型
+ */
+interface IActionsResult {
+  type: 'add' | 'append' | 'modify'
+  path: string
+  templatePath: string
+  data?: Record<string, string>
+}
+
 /**
  * ConfigMap 的类型
  */
@@ -42,17 +53,7 @@ interface IConfigMap {
   force: boolean
   generatorMap: Map<string, IEchoorcConfig>
   currentGenerator: IEchoorcConfig
-  actionsResult: any[]
-}
-
-/**
- * action 中的类型
- */
-interface IActionsResult {
-  type: 'add' | 'append' | 'modify'
-  path: string
-  templateFile: string
-  data?: Record<string, string>
+  actionsResult: IActionsResult[]
 }
 
 export { IEchoorcConfig, IOptionsConfig, IConfigMap, IActionsResult }

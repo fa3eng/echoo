@@ -1,0 +1,10 @@
+import React, { FC } from 'react'
+
+const {{ componentName }}: FC = () => {
+  
+  return (
+    <div></div>
+  )
+};
+
+export { {{ componentName }} };

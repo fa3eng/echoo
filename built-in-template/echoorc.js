@@ -21,17 +21,18 @@ module.exports = function generator (echoo) {
       actions: (data) => {
         const { componentName, isCss } = data
 
-        const actions = ['hello world']
+        const actions = []
         const path = `src/${COMPONENT_PATH}/{{componentName}}`
 
         if (componentName) {
           actions.push({
             type: 'add',
             path: `${path}/{{componentName}}.tsx`,
-            templateFile: './template/component/index.hbs',
+            templatePath: './template/component/index.art',
             data: {
               componentName: '{{ componentName }}'
-            }
+            },
+            force: false
           })
         }
 
@@ -39,7 +40,7 @@ module.exports = function generator (echoo) {
           actions.push({
             type: 'add',
             path: `${path}/${componentName}.less`,
-            templateFile: './template/component/style.hbs'
+            templatePath: './template/component/style.art'
           })
         }
 
@@ -73,7 +74,7 @@ module.exports = function generator (echoo) {
           actions.push({
             type: 'add',
             path: `${path}/{{componentName}}.tsx`,
-            templateFile: './template/component/index.hbs',
+            templatePath: './template/component/index.art',
             data: {
               componentName: '{{ componentName }}'
             }
@@ -84,7 +85,7 @@ module.exports = function generator (echoo) {
           actions.push({
             type: 'add',
             path: `${path}/${componentName}.less`,
-            templateFile: './template/component/style.hbs'
+            templatePath: './template/component/style.art'
           })
         }
 

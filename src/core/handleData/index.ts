@@ -1,14 +1,17 @@
-// 这一层用于处理数据
-import { Answers } from 'inquirer'
 import { configMap } from '..'
-import { IEchoorcConfig } from '../../types'
+import { IActionsResult, IEchoorcConfig } from '../../types'
 import { getDataByPrompt } from './getDataByPrompt'
+import { handlePath } from './handlePath'
+import { render } from './renderString'
 
 const handleData = async function (currentGenerator: IEchoorcConfig): Promise<any> {
   const data = await getDataByPrompt(currentGenerator)
 
   let actionsArray: typeof currentGenerator.actions
 
+  // action 的值存在两种情况
+  // 1. 返回值是一个数组的函数 2. 数组
+  // 如果是数组, 那么我们直接使用就可以了, 如果是函数, 那么我们运行函数, 返回数组
   if (Array.isArray(currentGenerator.actions)) {
     actionsArray = currentGenerator.actions
   } else {
@@ -17,28 +20,12 @@ const handleData = async function (currentGenerator: IEchoorcConfig): Promise<an
 
   const renderString = render(JSON.stringify(actionsArray), data)
 
-  configMap.set('actionsResult', JSON.parse(renderString))
-}
+  // 处理路径数据
+  const actionList = JSON.parse(renderString) as IActionsResult[]
 
-/** 一个简单的模板引擎
- *
- * @param template 需要渲染的模板
- * @param data 需要渲染的数据
- * @returns 字符串, 渲染好的模板字符串
- */
-const render = function render (template: string, data: Answers): string {
-  const reg = /[{]{2}(\s?\w+\s?)[}]{2}/
+  const actionResult = handlePath(actionList)
 
-  if (reg.test(template)) { // 判断模板里是否有模板字符串
-    // @ts-expect-error
-    const name = reg.exec(template)[1].trim()
-
-    template = template.replace(reg, data[name])
-
-    return render(template, data)
-  }
-
-  return template // 如果模板没有模板字符串直接返回
+  configMap.set('actionsResult', actionResult)
 }
 
 export { handleData }
