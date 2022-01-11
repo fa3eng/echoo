@@ -18,34 +18,22 @@ module.exports = function generator (echoo) {
           message: '是否需要创建样式文件'
         }
       ],
-      actions: (data) => {
-        const { componentName, isCss } = data
-
-        const actions = []
-        const path = `src/${COMPONENT_PATH}/{{componentName}}`
-
-        if (componentName) {
-          actions.push({
-            type: 'add',
-            path: `${path}/{{componentName}}.tsx`,
-            templatePath: './template/component/index.art',
-            data: {
-              componentName: '{{ componentName }}'
-            },
-            force: false
-          })
+      actions: [
+        {
+          type: 'add',
+          path: 'example/src/page/{{componentName}}/{{componentName}}.tsx',
+          templatePath: './template/component/index.art',
+          force: false,
+          data: {
+            componentName: '{{ componentName }}'
+          }
+        },
+        {
+          type: 'add',
+          path: 'example/src/page/{{componentName}}/{{componentName}}.less',
+          templatePath: './template/component/style.art'
         }
-
-        if (isCss) {
-          actions.push({
-            type: 'add',
-            path: `${path}/${componentName}.less`,
-            templatePath: './template/component/style.art'
-          })
-        }
-
-        return actions
-      }
+      ]
     })
   echoo.setGenerator(
     {
