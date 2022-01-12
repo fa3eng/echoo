@@ -3,8 +3,19 @@ import fs from 'fs'
 import ps from 'path'
 import { configMap } from '..'
 
-const addType = function (path: string, resultString: string): any {
-  // 根据路径直接写入文件.
+const addType = function (
+  path: string,
+  resultString: string,
+  isCreate: string | boolean | undefined
+): void {
+  // 当 isCreate => 'false' | false | 空字符时, 不进行渲染
+  if (
+    (typeof isCreate === 'boolean' && !isCreate) ||
+    isCreate === '' ||
+    isCreate === 'false'
+  ) {
+    return
+  }
 
   fs.mkdirSync(ps.dirname(path), { recursive: true })
   fs.writeFileSync(path, resultString)
@@ -13,8 +24,8 @@ const addType = function (path: string, resultString: string): any {
 const generateTemplate = function (): any {
   const actionList = configMap.get('actionsResult')
 
-  actionList.forEach((item) => {
-    const { data, type, templatePath, path } = item
+  actionList.forEach(item => {
+    const { data, type, templatePath, path, isCreate } = item
 
     // 将在这一层, 通过给定的数据渲染模板,因此数据处理工作不在这一层完成
     // 这里将会出现合法性检查 主要针对于路径的合法性问题
@@ -29,12 +40,12 @@ const generateTemplate = function (): any {
     // 如果没有本次 action 没有 data 需要渲染, 那么直接渲染
     if (data == null) {
       const resultString = fs.readFileSync(templatePath).toString()
-      addType(path, resultString)
+      addType(path, resultString, isCreate)
       return
     }
 
     const resultString = template(templatePath, data)
-    addType(path, resultString)
+    addType(path, resultString, isCreate)
   })
 }
 

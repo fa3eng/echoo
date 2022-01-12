@@ -43,6 +43,7 @@ interface IActionsResult {
   path: string
   templatePath: string
   data?: Record<string, string>
+  isCreate?: string | boolean
 }
 
 /**

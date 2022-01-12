@@ -24,6 +24,7 @@ module.exports = function generator (echoo) {
           path: 'example/src/page/{{componentName}}/{{componentName}}.tsx',
           templatePath: './template/component/index.art',
           force: false,
+          isCreate: '{{componentName}}',
           data: {
             componentName: '{{ componentName }}'
           }
@@ -31,7 +32,8 @@ module.exports = function generator (echoo) {
         {
           type: 'add',
           path: 'example/src/page/{{componentName}}/{{componentName}}.less',
-          templatePath: './template/component/style.art'
+          templatePath: './template/component/style.art',
+          isCreate: '{{isCss}}'
         }
       ]
     })
