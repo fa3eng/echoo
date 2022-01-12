@@ -34,6 +34,24 @@ module.exports = function generator (echoo) {
           path: 'example/src/page/{{componentName}}/{{componentName}}.less',
           templatePath: './template/component/style.art',
           isCreate: '{{isCss}}'
+        },
+        {
+          type: 'append',
+          pattern: '/(?<=@echoo-router-import\n)/',
+          path: 'example/src/router/config.ts',
+          templatePath: './template/router/import.art',
+          data: {
+            componentName: '{{ componentName }}'
+          }
+        },
+        {
+          type: 'append',
+          pattern: '/(?<=@echoo-router-config\n)/',
+          path: 'example/src/router/config.ts',
+          templatePath: './template/router/config.art',
+          data: {
+            componentName: '{{ componentName }}'
+          }
         }
       ]
     })

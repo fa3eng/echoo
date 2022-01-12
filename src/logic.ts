@@ -30,7 +30,7 @@ const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
 
   await handleData(configMap.get('currentGenerator'))
 
-  console.log(configMap.get('actionsResult'))
+  // console.log(configMap.get('actionsResult'))
   generateTemplate()
 }
 

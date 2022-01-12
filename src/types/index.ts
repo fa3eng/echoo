@@ -44,6 +44,7 @@ interface IActionsResult {
   templatePath: string
   data?: Record<string, string>
   isCreate?: string | boolean
+  pattern?: string
 }
 
 /**
