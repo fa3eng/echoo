@@ -3,7 +3,7 @@ import ps from 'path'
 import { judgePathValidity } from './judgePathValidity'
 import { searchConfigFilePath } from './searchConfigFilePath'
 
-const buildInEchoorcPath = ps.resolve(process.cwd(), 'built-in-template', 'echoorc.js')
+const buildInEchoorcPath = ps.resolve(__dirname, '../../../', 'built-in-template', 'echoorc.js')
 
 /** 返回需要的配置文件路径, 以及修改配置中心文件
  *

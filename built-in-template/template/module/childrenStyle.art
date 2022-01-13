@@ -1,5 +1,6 @@
 :local(.wrapper) {
-  .h2 {
+
+  .p {
     color: aqua;
   }
 }

@@ -1,6 +1,6 @@
-{
-  name: "{{componentName}}",
-  path: "/{{componentName}}",
-  component: {{componentName}},
-  meta: { name: "{{componentName}}" },
-},
+    {
+      name: "{{componentName}}",
+      path: "/{{componentName}}",
+      component: {{componentName}},
+      meta: { name: "{{componentName}}" },
+    },
