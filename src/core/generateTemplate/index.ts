@@ -1,8 +1,8 @@
 import template from 'art-template'
 import fs from 'fs'
-import { configMap } from '..'
-import { addType } from './addType'
-import { appendType } from './appendType'
+import { configMap } from '../index.js'
+import { addType } from './addType/index.js'
+import { appendType } from './appendType/index.js'
 
 const generateTemplate = function (): any {
   const actionList = configMap.get('actionsResult')

@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "dev environment",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "ech": "bin/index.js"
   },
   "types": "dist/types/cli.d.ts",
   "scripts": {
-    "preinstall": "npx husky install && tsc && npm link",
     "format": "ts-standard --fix",
     "build": "ts-standard --fix && tsc",
     "dev": "rm -fr dist && tsc",
@@ -27,7 +27,7 @@
     "lint-staged": "^12.1.4",
     "ts-node-dev": "^1.1.8",
     "ts-standard": "^11.0.0",
-    "typescript": "4.4"
+    "typescript": "^4.6.0-dev.20220123"
   },
   "lint-staged": {
     "src/*": "npm run format"

@@ -1,4 +1,4 @@
-module.exports = function generator (echoo) {
+export function generator (echoo) {
   echoo.setGenerator({
     name: 'luban-init-view(将自动配置一级路由)',
     description: '创建 component',

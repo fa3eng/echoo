@@ -1,7 +1,12 @@
-import { configMap } from '..'
-import ps from 'path'
-import { judgePathValidity } from './judgePathValidity'
-import { searchConfigFilePath } from './searchConfigFilePath'
+import { configMap } from '../index.js'
+import ps, { dirname } from 'path'
+import { judgePathValidity } from './judgePathValidity.js'
+import { searchConfigFilePath } from './searchConfigFilePath.js'
+
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const buildInEchoorcPath = ps.resolve(__dirname, '../../../', 'built-in-template', 'echoorc.js')
 

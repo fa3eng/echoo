@@ -1,8 +1,8 @@
 // 通过 generator 生成对应的 prompt
 
 import inquirer from 'inquirer'
-import { createListPrompt } from '../../../base'
-import { IEchoorcConfig } from '../../../types'
+import { createListPrompt } from '../../../base/index.js'
+import { IEchoorcConfig } from '../../../types/index.js'
 
 /**
  * 收集 prompt 收集到的数据

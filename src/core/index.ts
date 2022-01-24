@@ -1,10 +1,10 @@
-import { IActionsResult, IConfigMap, IEchoorcConfig } from '../types'
-import { createDispatchPrompt } from './dispatch'
-import { generateTemplate } from './generateTemplate'
-import { getConfigFilePathEffect } from './getConfigFilePath'
-import { handleData } from './handleData'
-import { generatorFuncEffect, setGeneratorEffect } from './initConfig'
-import { TypedMap } from '../base'
+import { IActionsResult, IConfigMap, IEchoorcConfig } from '../types/index.js'
+import { createDispatchPrompt } from './dispatch/index.js'
+import { generateTemplate } from './generateTemplate/index.js'
+import { getConfigFilePathEffect } from './getConfigFilePath/index.js'
+import { handleData } from './handleData/index.js'
+import { generatorFuncEffect, setGeneratorEffect } from './initConfig/index.js'
+import { TypedMap } from '../base/index.js'
 
 const currentGenerator: IEchoorcConfig = {
   name: '',

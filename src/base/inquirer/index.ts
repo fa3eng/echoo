@@ -6,7 +6,7 @@ async function createListPrompt (
   return await new Promise((resolve, reject) => {
     inquirer
       .prompt(questionCollection)
-      .then(value => {
+      .then((value: any) => {
         resolve(value)
       })
       .catch(err => {

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import ps from 'path'
-import { getConfigNameMap } from './getConfigNameMap'
+import { getConfigNameMap } from './getConfigNameMap.js'
 
 // 判断路径合法性, 以及路径是否存在
 const judgePathValidity = function (path: string, configName: string): boolean {

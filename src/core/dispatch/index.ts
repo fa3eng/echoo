@@ -1,7 +1,7 @@
 // 分发工具, 通过 generator 显示出对应的值
-import { configMap } from '..'
-import { createListPrompt } from '../../base'
-import { IEchoorcConfig } from '../../types'
+import { configMap } from '../index.js'
+import { createListPrompt } from '../../base/index.js'
+import { IEchoorcConfig } from '../../types/index.js'
 
 /**
  * 创建 generator 分发页面, 并且将获得的数据存储到数据中

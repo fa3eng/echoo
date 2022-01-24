@@ -1,6 +1,6 @@
 import ps from 'path'
-import { configMap } from '../..'
-import { IActionsResult } from '../../../types'
+import { configMap } from '../../index.js'
+import { IActionsResult } from '../../../types/index.js'
 
 const handlePath = function (actionList: IActionsResult[]): IActionsResult[] {
   const actionResult = actionList.map(item => {

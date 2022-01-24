@@ -1,8 +1,8 @@
-import { configMap } from '..'
-import { IActionsResult, IEchoorcConfig } from '../../types'
-import { getDataByPrompt } from './getDataByPrompt'
-import { handlePath } from './handlePath'
-import { render } from './renderString'
+import { configMap } from '../index.js'
+import { IActionsResult, IEchoorcConfig } from '../../types/index.js'
+import { getDataByPrompt } from './getDataByPrompt/index.js'
+import { handlePath } from './handlePath/index.js'
+import { render } from './renderString/index.js'
 
 const handleData = async function (currentGenerator: IEchoorcConfig): Promise<any> {
   const data = await getDataByPrompt(currentGenerator)
