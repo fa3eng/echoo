@@ -52,8 +52,7 @@ interface IActionsResult {
  */
 interface IConfigMap {
   echoorcFilePath: string
-  force: boolean
-  generatorMap: Map<string, IEchoorcConfig>
+  generatorsMap: Map<string, IEchoorcConfig>
   currentGenerator: IEchoorcConfig
   actionsResult: IActionsResult[]
 }

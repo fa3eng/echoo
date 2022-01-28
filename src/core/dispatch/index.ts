@@ -5,20 +5,19 @@ import { IEchoorcConfig } from '../../types/index.js'
 
 /**
  * 创建 generator 分发页面, 并且将获得的数据存储到数据中
- * @param generatorMap 生成器映射表
+ * @param generatorsMap 生成器映射表
  */
-const createDispatchPrompt = async function (
-  generatorMap: Map<string, IEchoorcConfig>
+const selectGenerator = async function (
+  generatorsMap: Map<string, IEchoorcConfig>
 ): Promise<any> {
   const selectGeneratorName = await createListPrompt({
     type: 'list',
     name: 'generatorName',
     message: '选择你想要使用的生成器',
-    choices: [...generatorMap.keys()]
+    choices: [...generatorsMap.keys()]
   })
 
-  const generatorMaps = configMap.get('generatorMap')
-  const currentGenerator = generatorMaps.get(selectGeneratorName.generatorName)
+  const currentGenerator = generatorsMap.get(selectGeneratorName.generatorName)
 
   if (currentGenerator == null) {
     console.error('没有找到对应 generator')
@@ -28,4 +27,4 @@ const createDispatchPrompt = async function (
   configMap.set('currentGenerator', currentGenerator)
 }
 
-export { createDispatchPrompt }
+export { selectGenerator }

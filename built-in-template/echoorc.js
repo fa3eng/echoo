@@ -1,5 +1,5 @@
-export function generator (echoo) {
-  echoo.setGenerator({
+export function generator (gen) {
+  gen({
     name: 'luban-init-view(将自动配置一级路由)',
     description: '创建 component',
     prompts: [
@@ -124,7 +124,7 @@ export function generator (echoo) {
       return actionsList
     }
   })
-  echoo.setGenerator({
+  gen({
     name: 'luban-create-component(无副作用)',
     description: '创建公用component',
     prompts: [
@@ -168,7 +168,7 @@ export function generator (echoo) {
       return actionsList
     }
   })
-  echoo.setGenerator({
+  gen({
     name: 'luban-create-component在cwd下创建一个模块',
     description: '在cwd创建一个模块',
     prompts: [
