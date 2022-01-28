@@ -1,4 +1,5 @@
 import inquirer from 'inquirer'
+import { logError } from '../chalk/index.js'
 
 async function createListPrompt (
   questionCollection: inquirer.QuestionCollection<inquirer.Answers>
@@ -10,7 +11,9 @@ async function createListPrompt (
         resolve(value)
       })
       .catch(err => {
-        reject(err)
+        logError('inquirer 出现问题, 请检查配置文件')
+        logError(err)
+        process.exit(1)
       })
   })
 }

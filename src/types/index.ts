@@ -14,14 +14,14 @@ declare interface IOptionsConfig {
 /**
  * echoorc 中 config 的类型
  */
-interface IActionAdd {
-  type: string
+export interface IActionAdd {
+  type: 'add'
   path: string
   templatePath: string
   data: Record<string, string>
 }
-interface IActionAppend {
-  type: string
+export interface IActionAppend {
+  type: 'append'
   path: string
   pattern: string
   templatePath: string
