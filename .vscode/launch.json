@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "echoo",
-      "program": "${workspaceFolder}/src/cli.ts",
+      "program": "${workspaceFolder}/bin/index.js",
       "args": ["gen"],
       "preLaunchTask": "tsc: build - tsconfig.json",
       "console": "integratedTerminal",

@@ -1,6 +1,19 @@
 import { logError } from '../../../base/chalk/index.js'
 import { IActionAdd, IActionAppend } from '../../../types/index.js'
 
+const checkData = function (actionsArray: any, name: string): void {
+  if (!Array.isArray(actionsArray)) {
+    logError(`出错的 Generator 名为 ${name}\n
+    请确保 actions 是一个数组或者是一个返回值为数组的函数`)
+  }
+
+  // 对每一个actions 进行检查
+  for (const item of actionsArray) {
+    const isError = publicCheck(name, item)
+    if (isError) process.exit(1)
+  }
+}
+
 const publicCheck = function (
   name: string,
   target: IActionAdd | IActionAppend
@@ -55,4 +68,4 @@ const publicCheck = function (
   return flag
 }
 
-export { publicCheck }
+export { publicCheck, checkData }

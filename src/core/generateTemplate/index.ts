@@ -1,38 +1,43 @@
-import template from 'art-template'
 import fs from 'fs'
+import ora from 'ora'
+import { makeBackupPath } from '../../base/index.js'
 import { configMap } from '../index.js'
-import { addType } from './addType/index.js'
-import { appendType } from './appendType/index.js'
+import { add } from './addType/index.js'
+import { append } from './appendType/index.js'
 
-const generateTemplate = function (): any {
+const generateTemplate = async function (): Promise<void> {
   const actionList = configMap.get('actionsResult')
 
-  actionList.forEach(item => {
-    const { data, type, templatePath, path, isCreate, pattern } = item
+  for (const item of actionList) {
+    const { type } = item
+    item.isUse = true
 
-    // TODO 检查操作合法性
+    const spinner = ora(`action: ${item.description}\npath: ${item.path}`).start()
+
     if (type === 'add') {
-      if (data == null) {
-        const resultString = fs.readFileSync(templatePath).toString()
-        addType(path, resultString, isCreate)
-        return
-      }
-
-      const resultString = template(templatePath, data)
-      addType(path, resultString, isCreate)
-      return
+      await add(item, spinner)
     }
 
     if (type === 'append') {
-      if (data == null) {
-        const resultString = fs.readFileSync(templatePath).toString()
-        appendType(path, resultString, pattern, isCreate)
-      }
-
-      const resultString = template(templatePath, data)
-      appendType(path, resultString, pattern, isCreate)
+      await append(item, spinner)
     }
-  })
+  }
+
+  // 结束阶段,需要将生成的 backup 删除
+  for (const item of actionList) {
+    const { type } = item
+
+    // 只有当 add action 是覆盖文件的时候才会生成 backup
+    if (type === 'add' && item.isForce === true) {
+      const backupPath = makeBackupPath(item.path)
+      fs.rmSync(backupPath)
+    }
+
+    if (type === 'append') {
+      const backupPath = makeBackupPath(item.path)
+      fs.rmSync(backupPath)
+    }
+  }
 }
 
 export { generateTemplate }

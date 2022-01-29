@@ -1,5 +1,66 @@
 export function generator (gen) {
   gen({
+    name: '测试',
+    description: '测试',
+    prompts: [
+      {
+        type: 'input',
+        name: 'addTest_',
+        message: 'add 测试2'
+      },
+      {
+        type: 'input',
+        name: 'appendTest',
+        message: 'append 测试'
+      },
+      {
+        type: 'input',
+        name: 'addTest',
+        message: 'add 测试'
+      }
+    ],
+    actions: data => {
+      const { addTest, appendTest, addTest_ } = data
+
+      const actionsList = []
+
+      const createComponent = {
+        type: 'add',
+        description: 'add test',
+        path: `./test/${addTest}/index.tsx`,
+        templatePath: './test/template/add.art',
+        data: {
+          moduleName: addTest
+        }
+      }
+
+      const createComponent_ = {
+        type: 'add',
+        description: 'add test2',
+        path: `./test/${addTest_}/ggs/kkb/index.tsx`,
+        templatePath: './test/template/add.art',
+        data: {
+          moduleName: addTest_
+        }
+      }
+
+      const append = {
+        type: 'append',
+        description: 'append test',
+        path: './test/index.js',
+        templatePath: './test/template/append.art',
+        pattern: /(?<=@echoo-test\n)/,
+        data: {
+          test: appendTest
+        }
+      }
+
+      actionsList.push(createComponent_, append, createComponent)
+
+      return actionsList
+    }
+  })
+  gen({
     name: 'luban-init-view(将自动配置一级路由)',
     description: '创建 component',
     prompts: [
@@ -45,21 +106,21 @@ export function generator (gen) {
 
       const appendImport = {
         type: 'append',
-        pattern: '/(?<=@echoo-router-import\n)/',
+        pattern: /(?<=@echoo-router-import\n)/,
         path: 'src/route/config.ts',
         templatePath: './template/router/import.art',
         data: {
-          componentName: '{{ componentName }}'
+          componentName: componentName
         }
       }
 
       const appendRouter = {
         type: 'append',
-        pattern: '/(?<=@echoo-router-config\n)/',
+        pattern: /(?<=@echoo-router-config\n)/,
         path: 'src/route/config.ts',
         templatePath: './template/router/config.art',
         data: {
-          componentName: '{{ componentName }}'
+          componentName: componentName
         }
       }
 
@@ -78,31 +139,31 @@ export function generator (gen) {
 
       const appendSliceImport = {
         type: 'append',
-        pattern: '/(?<=@echoo-rematch-import\n)/',
+        pattern: /(?<=@echoo-rematch-import\n)/,
         path: modelPath,
         templatePath: './template/rematch/import.art',
         data: {
-          componentName: '{{ componentName }}'
+          componentName: componentName
         }
       }
 
       const appendSliceType = {
         type: 'append',
-        pattern: '/(?<=@echoo-rematch-type\n)/',
+        pattern: /(?<=@echoo-rematch-type\n)/,
         path: modelPath,
         templatePath: './template/rematch/type.art',
         data: {
-          componentName: '{{ componentName }}'
+          componentName: componentName
         }
       }
 
       const appendSliceExport = {
         type: 'append',
-        pattern: '/(?<=@echoo-rematch-export\n)/',
+        pattern: /(?<=@echoo-rematch-export\n)/,
         path: modelPath,
         templatePath: './template/rematch/export.art',
         data: {
-          componentName: '{{ componentName }}'
+          componentName: componentName
         }
       }
 
