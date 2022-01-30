@@ -8,11 +8,17 @@ import { append } from './appendType/index.js'
 const generateTemplate = async function (): Promise<void> {
   const actionList = configMap.get('actionsResult')
 
+  let count = 0
   for (const item of actionList) {
+    count++
     const { type } = item
     item.isUse = true
+    item.count = count
 
-    const spinner = ora(`action: ${item.description}\npath: ${item.path}`).start()
+    const spinner = ora({
+      discardStdin: false,
+      text: `action: ${item.description} path: ${item.path}`
+    }).start()
 
     if (type === 'add') {
       await add(item, spinner)

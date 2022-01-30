@@ -24,10 +24,11 @@ const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
   // 3. 根据配置文件信息选择生成器, 并将对应生成器配置信息存入 configMap
   await selectGenerator(configMap.get('generatorsMap'))
 
-  // 4.
+  // 4. 根据用户的输入获取数据, 并且整合数据, 输出 actions 存入 configMap
   await handleData(configMap.get('currentGenerator'))
 
-  generateTemplate()
+  // 5. 根据 actionsList 生成结果
+  await generateTemplate()
 }
 
 export { gen }

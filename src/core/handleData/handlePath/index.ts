@@ -5,7 +5,6 @@ import { IActionsResult } from '../../../types/index.js'
 const handlePath = function (actionList: IActionsResult[]): IActionsResult[] {
   const actionResult = actionList.map(item => {
     const { path, templatePath } = item
-    // TODO 存在这种情况, 通过CLI指定路径, 我们也需要进行处理
     const path_ = handlePathData(path)
     const templatePath_ = handlePathData(templatePath)
 

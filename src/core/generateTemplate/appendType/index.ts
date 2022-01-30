@@ -1,13 +1,16 @@
 import { Ora } from 'ora'
 import template from 'art-template'
+import chalk from 'chalk'
 import fs, { accessSync, readFileSync, writeFileSync } from 'fs'
-import ps from 'path'
-import { logInfo } from '../../../base/chalk/index.js'
-import { createListPrompt } from '../../../base/index.js'
+import { createListPrompt, makeBackupPath } from '../../../base/index.js'
 import { IActionsResult } from '../../../types/index.js'
 import { abortOperation } from '../abortOperation/index.js'
+import { isRegExp } from '../../../base/utility/isRegExp.js'
 
-const append = async function (item: IActionsResult, spinner: Ora): Promise<void> {
+const append = async function (
+  item: IActionsResult,
+  spinner: Ora
+): Promise<void> {
   const { data, templatePath, path, pattern } = item
 
   let howOperation = null
@@ -23,12 +26,12 @@ const append = async function (item: IActionsResult, spinner: Ora): Promise<void
     const resultString = template(templatePath, data)
     appendType(path, resultString, spinner, item, pattern)
   } catch {
-    // 文件不存在, 处理异常
-    spinner.fail(`action: ${item.description}\npath: ${item.path}`)
     const result = await createListPrompt({
       type: 'list',
       name: 'handleFileExistsError',
-      message: `${item.path}文件不存在, 请问如何操作 ?`,
+      message: `${chalk.red(
+        `[ERROR WARNING] action ${chalk.underline(item.description)} 所要修改的目标文件不存在`
+      )}\n\n\t${chalk.blueBright('path')}: ${item.path}\n\n`,
       choices: [
         {
           name: '取消命令 (此前的操作将会全部复原)',
@@ -36,10 +39,6 @@ const append = async function (item: IActionsResult, spinner: Ora): Promise<void
         },
         {
           name: '跳过本次 action (后续的 actions 将会执行)',
-          value: 'skip'
-        },
-        {
-          name: '撤销命令 (回滚, 你可以选择哪些 actions 是需要保留的)',
           value: 'skip'
         }
       ]
@@ -49,12 +48,13 @@ const append = async function (item: IActionsResult, spinner: Ora): Promise<void
   }
 
   if (howOperation === 'skip') {
-    logInfo('跳过本次 action')
+    spinner.fail(
+      `${chalk.yellowBright(`[${item.count}] 跳过 Action`)}: ${item.description}`
+    )
     return
   }
 
   if (howOperation === 'abort') {
-    logInfo('取消本次命令')
     abortOperation()
   }
 }
@@ -70,29 +70,33 @@ const appendType = function (
     throw Error('pattern 不能为空')
   }
 
-  const pattern_ = new RegExp(pattern)
+  // pattern 一般都是需要匹配到某一个位置的后面 pattern: /(?<=@echoo-router-import\n)/,
+  // pattern 支持自定义正则, 也允许用户使用默认规则 -> 定位到 pattern 字符串的下一行
+  const pattern_ = isRegExp(pattern)
+    ? pattern
+    : new RegExp(`/(?<=${pattern})\n/`)
+
   const fileContent = readFileSync(path).toString()
 
-  // 在执行替换之前, 给文件做一个备份, 防止出现错误
-  const { name, dir } = ps.parse(path)
-  const backupPath = ps.resolve(dir, `.${name}`)
-
-  // 如果备份文件已经存在了, 将不执行备份操作
+  // 备份
+  const backupPath = makeBackupPath(path)
   try {
+    // 存在对一个文件进行多次 append , 因此如果备份文件已经存在了, 将不执行备份操作
     accessSync(backupPath)
   } catch {
     fs.writeFileSync(backupPath, fileContent)
   }
 
-  // 注意: 在添加之前换行, 防止在一个点多次添加的时候, 内容不换行
-  const temp = fileContent.replace(pattern_, '\n')
-  const resultContent = temp.replace(pattern_, resultString)
+  const resultContent = fileContent.replace(pattern_, resultString)
 
   try {
     writeFileSync(path, resultContent)
-    spinner.succeed(`action: ${item.description}\npath: ${item.path}`)
+
+    spinner.succeed(
+      `${chalk.greenBright(`[${item.count}] 执行 Action`)}: ${item.description}`
+    )
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 

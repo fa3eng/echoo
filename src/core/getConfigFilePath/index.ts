@@ -17,12 +17,12 @@ const buildInEchoorcPath = ps.resolve(
 
 /** 返回需要的配置文件路径, 以及修改配置中心文件
  *
- * @param useExternalTemplates 是否使用内置的模板, 依赖于 flag -e
+ * @param useExternalConfig 是否使用内置的模板, 依赖于 flag -e
  * @param configurationPath CLI 上指定的路径
  * @returns 配置文件的路径
  */
 const getConfigFilePath = function (
-  useExternalTemplates: boolean,
+  useExternalConfig: boolean,
   configurationPath: string
 ): string {
   if (
@@ -33,7 +33,7 @@ const getConfigFilePath = function (
     return configurationPath
   }
 
-  if (!useExternalTemplates) {
+  if (!useExternalConfig) {
     configMap.set('echoorcFilePath', buildInEchoorcPath)
     return buildInEchoorcPath
   }

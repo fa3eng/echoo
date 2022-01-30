@@ -2,6 +2,7 @@
 import { configMap } from '../index.js'
 import { createListPrompt } from '../../base/index.js'
 import { IEchoorcConfig } from '../../types/index.js'
+import { logError } from '../../base/chalk/index.js'
 
 /**
  * 创建 generator 分发页面, 并且将获得的数据存储到数据中
@@ -20,7 +21,7 @@ const selectGenerator = async function (
   const currentGenerator = generatorsMap.get(selectGeneratorName.generatorName)
 
   if (currentGenerator == null) {
-    console.error('没有找到对应 generator')
+    logError('没有找到对应 generator')
     process.exit(1)
   }
 

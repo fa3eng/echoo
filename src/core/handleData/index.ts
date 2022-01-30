@@ -1,13 +1,13 @@
 import { configMap } from '../index.js'
 import { IEchoorcConfig } from '../../types/index.js'
-import { getDataByPrompt } from './getDataByPrompt/index.js'
 import { handlePath } from './handlePath/index.js'
 import { checkData } from './checkData/index.js'
+import { createListPrompt } from '../../base/index.js'
 
 const handleData = async function (
   currentGenerator: IEchoorcConfig
 ): Promise<any> {
-  const data = await getDataByPrompt(currentGenerator)
+  const data = await createListPrompt(currentGenerator.prompts)
 
   const { name, actions } = currentGenerator
 

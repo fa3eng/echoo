@@ -16,6 +16,7 @@ declare interface IOptionsConfig {
  */
 export interface IActionAdd {
   type: 'add'
+  count: number
   description: string
   path: string
   templatePath: string
@@ -23,6 +24,7 @@ export interface IActionAdd {
 }
 export interface IActionAppend {
   type: 'append'
+  count: number
   description: string
   path: string
   pattern: string
@@ -49,6 +51,7 @@ interface IEchoorcConfig {
  * isForce: 是否在错误处理阶段强制生成了, 作用与 abort 阶段
  */
 interface IActionsResult {
+  count: number
   type: 'add' | 'append'
   description: string
   path: string
