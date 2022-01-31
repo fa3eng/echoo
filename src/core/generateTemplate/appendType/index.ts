@@ -1,11 +1,12 @@
 import { Ora } from 'ora'
 import template from 'art-template'
-import chalk from 'chalk'
-import fs, { accessSync, readFileSync, writeFileSync } from 'fs'
-import { createListPrompt, makeBackupPath } from '../../../base/index.js'
+import { accessSync, readFileSync, writeFileSync } from 'fs'
 import { IActionsResult } from '../../../types/index.js'
 import { abortOperation } from '../abortOperation/index.js'
-import { isRegExp } from '../../../base/utility/isRegExp.js'
+import { isRegExp } from '../utility/isRegExp.js'
+import { handleErrorPrompt } from '../utility/handleErrorPrompt.js'
+import { makeInfoMessage } from '../utility/makeMessage.js'
+import { makeBackUpFile } from '../utility/makeBackupFile.js'
 
 const append = async function (
   item: IActionsResult,
@@ -13,49 +14,26 @@ const append = async function (
 ): Promise<void> {
   const { data, templatePath, path, pattern } = item
 
-  let howOperation = null
-
   try {
     accessSync(path)
 
-    if (data == null) {
-      const resultString = readFileSync(templatePath).toString()
-      appendType(path, resultString, spinner, item, pattern)
-    }
+    const resultString =
+      data == null
+        ? readFileSync(templatePath).toString()
+        : template(templatePath, data)
 
-    const resultString = template(templatePath, data)
     appendType(path, resultString, spinner, item, pattern)
   } catch {
-    const result = await createListPrompt({
-      type: 'list',
-      name: 'handleFileExistsError',
-      message: `${chalk.red(
-        `[ERROR WARNING] action ${chalk.underline(item.description)} 所要修改的目标文件不存在`
-      )}\n\n\t${chalk.blueBright('path')}: ${item.path}\n\n`,
-      choices: [
-        {
-          name: '取消命令 (此前的操作将会全部复原)',
-          value: 'abort'
-        },
-        {
-          name: '跳过本次 action (后续的 actions 将会执行)',
-          value: 'skip'
-        }
-      ]
-    })
+    const howOperation = await handleErrorPrompt('append', item)
 
-    howOperation = result.handleFileExistsError
-  }
+    if (howOperation === 'abort') {
+      abortOperation()
+      process.exit(1)
+    }
 
-  if (howOperation === 'skip') {
-    spinner.fail(
-      `${chalk.yellowBright(`[${item.count}] 跳过 Action`)}: ${item.description}`
-    )
-    return
-  }
-
-  if (howOperation === 'abort') {
-    abortOperation()
+    if (howOperation === 'skip') {
+      spinner.fail(makeInfoMessage('skip', item))
+    }
   }
 }
 
@@ -78,23 +56,14 @@ const appendType = function (
 
   const fileContent = readFileSync(path).toString()
 
-  // 备份
-  const backupPath = makeBackupPath(path)
-  try {
-    // 存在对一个文件进行多次 append , 因此如果备份文件已经存在了, 将不执行备份操作
-    accessSync(backupPath)
-  } catch {
-    fs.writeFileSync(backupPath, fileContent)
-  }
+  makeBackUpFile(path, fileContent)
 
   const resultContent = fileContent.replace(pattern_, resultString)
 
   try {
     writeFileSync(path, resultContent)
 
-    spinner.succeed(
-      `${chalk.greenBright(`[${item.count}] 执行 Action`)}: ${item.description}`
-    )
+    spinner.succeed(makeInfoMessage('succeed', item))
   } catch (err) {
     console.error(err)
   }
