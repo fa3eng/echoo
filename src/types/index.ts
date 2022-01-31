@@ -35,12 +35,12 @@ export interface IActionAdd extends BaseAction {
   type: 'add'
   isForce: boolean
   isFileAlreadyExists: boolean
-  createdPath?: string
+  createdDirPath?: string
 }
 
 export interface IActionAppend extends BaseAction {
   type: 'append'
-  pattern: string
+  pattern: RegExp
 }
 
 export type ActionsListItem = IActionAdd | IActionAppend

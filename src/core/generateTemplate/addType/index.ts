@@ -12,6 +12,7 @@ const add = async function (item: IActionAdd, spinner: Ora): Promise<any> {
   const { data, templatePath, path } = item
 
   item.isFileAlreadyExists = false
+  item.isForce = false
 
   try {
     accessSync(path)
@@ -56,7 +57,7 @@ const addType = function (
   item: IActionAdd,
   spinner: Ora
 ): void {
-  item.createdPath = fs.mkdirSync(ps.dirname(path), { recursive: true })
+  item.createdDirPath = fs.mkdirSync(ps.dirname(path), { recursive: true })
 
   fs.writeFileSync(path, resultString)
   spinner.succeed(makeInfoMessage('succeed', item))
