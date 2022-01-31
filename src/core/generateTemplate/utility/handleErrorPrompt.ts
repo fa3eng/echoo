@@ -1,5 +1,5 @@
+import { ActionsListItem } from './../../../types/index.js'
 import { createListPrompt } from '../../../base/index.js'
-import { IActionsResult } from '../../../types/index.js'
 import { makeErrorMessage } from './makeMessage.js'
 
 /**
@@ -8,7 +8,7 @@ import { makeErrorMessage } from './makeMessage.js'
  * @param item
  * @returns
  */
-async function handleErrorPrompt (type: 'add' | 'append', item: IActionsResult): Promise<any> {
+async function handleErrorPrompt (type: 'add' | 'append', item: ActionsListItem): Promise<any> {
   const choices = [
     {
       name: '取消命令 (此前的操作将会全部复原)',

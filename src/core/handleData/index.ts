@@ -20,7 +20,7 @@ const handleData = async function (
 
   const actionResult = handlePath(actionsArray)
 
-  configMap.set('actionsResult', actionResult)
+  configMap.set('actionList', actionResult)
 }
 
 export { handleData }

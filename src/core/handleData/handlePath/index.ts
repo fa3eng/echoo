@@ -1,8 +1,8 @@
+import { ActionsListItem } from './../../../types/index.js'
 import ps from 'path'
 import { configMap } from '../../index.js'
-import { IActionsResult } from '../../../types/index.js'
 
-const handlePath = function (actionList: IActionsResult[]): IActionsResult[] {
+const handlePath = function (actionList: ActionsListItem[]): ActionsListItem[] {
   const actionResult = actionList.map(item => {
     const { path, templatePath } = item
     const path_ = handlePathData(path)

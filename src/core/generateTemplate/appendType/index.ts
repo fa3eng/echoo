@@ -1,15 +1,15 @@
 import { Ora } from 'ora'
 import template from 'art-template'
 import { accessSync, readFileSync, writeFileSync } from 'fs'
-import { IActionsResult } from '../../../types/index.js'
 import { abortOperation } from '../abortOperation/index.js'
 import { isRegExp } from '../utility/isRegExp.js'
 import { handleErrorPrompt } from '../utility/handleErrorPrompt.js'
 import { makeInfoMessage } from '../utility/makeMessage.js'
 import { makeBackUpFile } from '../utility/makeBackupFile.js'
+import { IActionAppend } from '../../../types/index.js'
 
 const append = async function (
-  item: IActionsResult,
+  item: IActionAppend,
   spinner: Ora
 ): Promise<void> {
   const { data, templatePath, path, pattern } = item
@@ -41,7 +41,7 @@ const appendType = function (
   path: string,
   resultString: string,
   spinner: Ora,
-  item: IActionsResult,
+  item: IActionAppend,
   pattern?: string
 ): void {
   if (pattern === undefined) {

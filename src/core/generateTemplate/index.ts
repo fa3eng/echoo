@@ -6,7 +6,7 @@ import { append } from './appendType/index.js'
 import { makeBackupPath } from './utility/makeBackupFile.js'
 
 const generateTemplate = async function (): Promise<void> {
-  const actionList = configMap.get('actionsResult')
+  const actionList = configMap.get('actionList')
 
   for (const item of actionList) {
     const { type } = item
@@ -31,7 +31,7 @@ const generateTemplate = async function (): Promise<void> {
     const { type } = item
 
     // 只有当 add action 是覆盖文件的时候才会生成 backup
-    if ((type === 'add' && item.isForce === true) || type === 'append') {
+    if ((type === 'add' && item.isForce) || type === 'append') {
       const backupPath = makeBackupPath(item.path)
       fs.rmSync(backupPath)
     }

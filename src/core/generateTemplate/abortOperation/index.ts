@@ -1,10 +1,10 @@
+import { ActionsListItem } from './../../../types/index.js'
 import fs from 'fs'
 import { makeBackupPath } from '../utility/makeBackupFile.js'
 import { configMap } from '../../index.js'
-import { IActionsResult } from '../../../types/index.js'
 
 const abortOperation = function (): void {
-  const actionList = configMap.get('actionsResult')
+  const actionList = configMap.get('actionList')
 
   const map = new Map([
     ['add', abortByAdd],
@@ -18,20 +18,22 @@ const abortOperation = function (): void {
   })
 }
 
-const rollback = function (item: IActionsResult): void {
+const rollback = function (item: ActionsListItem): void {
   const backupPath = makeBackupPath(item.path)
   fs.writeFileSync(item.path, fs.readFileSync(backupPath))
   fs.rmSync(backupPath)
 }
 
-const abortByAdd = function (item: IActionsResult): void {
+const abortByAdd = function (item: ActionsListItem): void {
+  if (item.type === 'append') return
+
   // 回滚时, 只删除新创建的文件以及其创造出来的路径
-  if (item.isFileAlreadyExists === false) {
+  if (!item.isFileAlreadyExists) {
     fs.rmSync(item.path)
     if (item.createdPath !== undefined) fs.rmdirSync(item.createdPath, { recursive: true })
   }
 
-  if (item.isForce === true) {
+  if (item.isForce) {
     rollback(item)
   }
 }

@@ -2,13 +2,13 @@ import template from 'art-template'
 import fs, { accessSync } from 'fs'
 import ps from 'path'
 import { Ora } from 'ora'
-import { IActionsResult } from '../../../types/index.js'
+import { IActionAdd } from '../../../types/index.js'
 import { abortOperation } from '../abortOperation/index.js'
 import { handleErrorPrompt } from '../utility/handleErrorPrompt.js'
 import { makeInfoMessage } from '../utility/makeMessage.js'
 import { makeBackUpFile } from '../utility/makeBackupFile.js'
 
-const add = async function (item: IActionsResult, spinner: Ora): Promise<any> {
+const add = async function (item: IActionAdd, spinner: Ora): Promise<any> {
   const { data, templatePath, path } = item
 
   item.isFileAlreadyExists = false
@@ -53,7 +53,7 @@ const add = async function (item: IActionsResult, spinner: Ora): Promise<any> {
 const addType = function (
   path: string,
   resultString: string,
-  item: IActionsResult,
+  item: IActionAdd,
   spinner: Ora
 ): void {
   item.createdPath = fs.mkdirSync(ps.dirname(path), { recursive: true })
