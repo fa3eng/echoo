@@ -24,6 +24,7 @@ const publicCheck = function (
       'type',
       {
         isEmpty: (
+          // eslint-disable-next-line no-prototype-builtins
           !target.hasOwnProperty('type') &&
           target.type !== 'add' &&
           target.type !== 'append'
@@ -34,6 +35,7 @@ const publicCheck = function (
     [
       'path',
       {
+        // eslint-disable-next-line no-prototype-builtins
         isEmpty: !target.hasOwnProperty('path'),
         msg: `出错的 Generator 名为 ${name}, path 字段必须存在`
       }
@@ -41,6 +43,7 @@ const publicCheck = function (
     [
       'templatePath',
       {
+        // eslint-disable-next-line no-prototype-builtins
         isEmpty: !target.hasOwnProperty('templatePath'),
         msg: `出错的 Generator 名为 ${name}, templatePath 字段必须存在`
       }
@@ -55,8 +58,10 @@ const publicCheck = function (
   })
 
   if (
+    // eslint-disable-next-line no-prototype-builtins
     target.hasOwnProperty('type') &&
     target.type === 'append' &&
+    // eslint-disable-next-line no-prototype-builtins
     !target.hasOwnProperty('pattern')
   ) {
     logError(
