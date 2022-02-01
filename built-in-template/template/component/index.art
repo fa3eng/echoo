@@ -1,0 +1,33 @@
+import React, { FC } from "react";
+{{if isRematch}}
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, RootState } from "@/store";
+{{/if}}
+
+{{if isCss}}
+import style from "./style.less";
+{{/if}}
+
+const {{componentName}}: FC = () => {
+  {{if isRematch}} 
+  const dispatch = useDispatch<Dispatch>();
+  const {  } = dispatch.{{componentName}};
+  const {  } = useSelector((state: RootState) => state.{{componentName}});
+  {{/if}}
+  
+  return (
+    {{if isCss}}
+      <div className={style.wrapper}>
+        <h2 className="h2">Hello Echoo</h2>
+        <p>This page is {{componentName}}</p>
+      </div>
+    {{else}}
+      <div>
+        <h2>Hello Echoo</h2>
+        <p>This page is {{componentName}}, and no style</p>
+      </div>
+    {{/if}}
+  );
+};
+
+export { {{componentName}} };

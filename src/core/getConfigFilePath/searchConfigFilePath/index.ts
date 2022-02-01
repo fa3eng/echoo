@@ -1,6 +1,6 @@
 import fs from 'fs'
 import ps from 'path'
-import { getConfigNameMap } from './getConfigNameMap'
+import { getConfigNameMap } from '../getConfigNameMap/index.js'
 
 const ignoreDir: Record<string, boolean> = {
   node_modules: true,

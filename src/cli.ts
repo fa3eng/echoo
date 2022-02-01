@@ -1,5 +1,6 @@
 import { Command } from 'commander'
-import { gen } from './logic'
+import { gen } from './logic.js'
+import { IOptionsConfig } from './types/index.js'
 
 const program = new Command()
 

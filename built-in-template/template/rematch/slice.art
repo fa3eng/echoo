@@ -1,0 +1,32 @@
+import { createModel } from "@rematch/core";
+
+import { RootModel } from ".";
+
+interface StateType {
+  count: number
+}
+
+const INIT_STATE: StateType = {
+  count: 0
+};
+
+const {{componentName}} = createModel<RootModel>()({
+  state: INIT_STATE,
+
+  reducers: {
+    updateStoreData: (state: StateType, payload: Partial<StateType>): StateType => ({
+      ...state,
+      ...payload,
+    }),
+  },
+
+  effects: (dispatch) => ({
+    async incrementAsync(payload: StateType, state) {
+      console.log("This is current root state", state);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      dispatch.Count.updateStoreData(payload);
+    },
+  }),
+});
+
+export { {{componentName}} };

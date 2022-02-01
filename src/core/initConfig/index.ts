@@ -1,30 +1,30 @@
-import { IEchoorcConfig } from '../../types/actionType'
-import { externalEchooAPI, echooAPI } from '../index'
+import { IEchoorcConfig } from '../../types/index.js'
+import { externalEchooAPI, configMap } from '../index.js'
+import { checkConfig } from './checkError/index.js'
 
-type TypeGenerator = (configuration: typeof externalEchooAPI) => void
-
-/**
- * 引入配置文件, 并且使用引入的函数 运行 externalEchooAPI 获取生成器
- * @param echoorcFilePath
- */
-const generatorFuncEffect = function (echoorcFilePath: string): void {
+const getConfigInfo = async function (
+  echoorcFilePath: string
+): Promise<void> {
   if (echoorcFilePath === '') {
     console.error('路径不合法或者配置文件不存在')
     process.exit(1)
   }
 
-  // 获取到配置文件中的 generator 函数
-  const Generator: TypeGenerator = require(echoorcFilePath) // eslint-disable-line
+  const { generator } = await import(echoorcFilePath)
 
-  Generator(externalEchooAPI)
+  /**
+   * 这里是关键逻辑
+   * echoo 约定配置文件中必须要导出一个名为 generator 的函数
+   * 该函数有两个参数 setGenerator 和 externalEchooAPI
+   * echoo 会通过调用 setGenerator 函数获取用户传达的配置
+   */
+  generator(externalEchooAPI.setGenerator, externalEchooAPI)
 }
 
-/**
- * 设置 generatorMap
- * @param config 从配置文件中获取的配置
- */
-const setGeneratorEffect = function (config: IEchoorcConfig): void {
-  echooAPI.setGeneratorMap(config.name, config)
+const setGenerator = function (config: IEchoorcConfig): void {
+  const generatorsMap = configMap.get('generatorsMap')
+  checkConfig(config)
+  generatorsMap.set(config.name, config)
 }
 
-export { generatorFuncEffect, setGeneratorEffect }
+export { getConfigInfo, setGenerator }

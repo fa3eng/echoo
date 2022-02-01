@@ -1,37 +1,34 @@
-import { echooAPI, effectEchooAPI } from './core'
+import { configMap, effectEchooAPI } from './core/index.js'
+import { IOptionsConfig } from './types/index.js'
 
 const {
-  getConfigFilePathEffect,
-  generatorFuncEffect,
-  createDispatchPrompt
+  getConfigFilePath,
+  getConfigInfo,
+  selectGenerator,
+  handleData,
+  generateTemplate
 } = effectEchooAPI
-
-const {
-  setForce,
-  getEchoorcFilePath,
-  getGeneratorMap,
-  getCurrentGenerator
-} = echooAPI
 
 const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
   const {
-    force = false,
     externalTemplates = false,
     configurationPath = ''
   } = optionsConfig
 
-  // 存储 force 参数
-  setForce(force)
+  // 1. 获取配置文件路径, 并将配置文件路径存入 configMap
+  getConfigFilePath(externalTemplates, configurationPath)
 
-  // 获取配置文件路径, 该函数的副作用是
-  getConfigFilePathEffect(externalTemplates, configurationPath)
+  // 2. 通过配置文件路径获取配置, 并将配置信息存入 configMap
+  await getConfigInfo(configMap.get('echoorcFilePath'))
 
-  // 通过配置文件路径, 运行配置文件中的 Generator 函数, 副作用是将配置文件中的配置读取到 configurationCenter
-  generatorFuncEffect(getEchoorcFilePath())
+  // 3. 根据配置文件信息选择生成器, 并将对应生成器配置信息存入 configMap
+  await selectGenerator(configMap.get('generatorsMap'))
 
-  await createDispatchPrompt(getGeneratorMap())
+  // 4. 根据用户的输入获取数据, 并且整合数据, 输出 actions 存入 configMap
+  await handleData(configMap.get('currentGenerator'))
 
-  console.log(getCurrentGenerator())
+  // 5. 根据 actionsList 生成结果
+  await generateTemplate()
 }
 
 export { gen }

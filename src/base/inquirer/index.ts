@@ -1,35 +1,21 @@
 import inquirer from 'inquirer'
+import { logError } from '../chalk/index.js'
 
-type TCreateListPrompt = (
-  type: string,
-  name: string,
-  message: string,
-  choices: string[]
-) => Promise<Record<string, string>>
-
-const createListPrompt: TCreateListPrompt = async function (type, name, message, choices) {
-  return (await new Promise(
-    (
-      resolve: (value: Record<string, string>) => void,
-      reject: (error: string) => void
-    ) => {
-      inquirer
-        .prompt([
-          {
-            type,
-            name,
-            message,
-            choices
-          }
-        ])
-        .then(value => {
-          resolve(value)
-        })
-        .catch(err => {
-          reject(err)
-        })
-    }
-  ))
+async function createListPrompt (
+  questionCollection: inquirer.QuestionCollection<inquirer.Answers>
+): Promise<inquirer.Answers> {
+  return await new Promise((resolve, reject) => {
+    inquirer
+      .prompt(questionCollection)
+      .then((value: any) => {
+        resolve(value)
+      })
+      .catch(err => {
+        logError('inquirer 出现问题, 请检查配置文件')
+        logError(err)
+        process.exit(1)
+      })
+  })
 }
 
 export { createListPrompt }

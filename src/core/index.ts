@@ -1,89 +1,47 @@
-import { IEchoorcConfig } from '../types/actionType'
-import { createDispatchPrompt } from './dispatch'
-import { getConfigFilePathEffect } from './getConfigFilePath'
-import { generatorFuncEffect, setGeneratorEffect } from './initConfig'
+import { ActionsListItem, IEchoorcConfig } from '../types/index.js'
+import { selectGenerator } from './dispatch/index.js'
+import { generateTemplate } from './generateTemplate/index.js'
+import { handleData } from './handleData/index.js'
+import { getConfigInfo, setGenerator } from './initConfig/index.js'
+import { TypedMap } from '../base/index.js'
+import { getConfigFilePath } from './getConfigFilePath/index.js'
 
-// #region core 中存储着 plop 的各项配置
-let echoorcFilePath = ''
-let force = false
-const generatorMap = new Map() as Map<string, IEchoorcConfig>
+interface IConfigMap {
+  echoorcFilePath: string
+  generatorsMap: Map<string, IEchoorcConfig>
+  currentGenerator: IEchoorcConfig
+  actionList: ActionsListItem[]
+}
 
-let currentGenerator: IEchoorcConfig = {
+const currentGenerator: IEchoorcConfig = {
   name: '',
   description: '',
   prompts: [],
   actions: []
 }
-// #endregion
 
-// #region 各项配置的存取函数
-const getForce = function (): boolean {
-  return force
-}
-
-const setForce = function (f: boolean): boolean {
-  force = f
-  return force
-}
-
-const getEchoorcFilePath = function (): string {
-  return echoorcFilePath
-}
-
-const setEchoorcFilePath = function (path: string): string {
-  echoorcFilePath = path
-  return echoorcFilePath
-}
-
-const getGeneratorMap = function (): Map<string, IEchoorcConfig> {
-  return generatorMap
-}
-
-const setGeneratorMap = function (key: string, value: IEchoorcConfig): Map<string, IEchoorcConfig> {
-  const genMap = generatorMap.set(key, value)
-  return genMap
-}
-
-const getCurrentGenerator = function (): IEchoorcConfig {
-  return currentGenerator
-}
-
-const setCurrentGenerator = function (generatorName: string): IEchoorcConfig {
-  if (generatorMap.get(generatorName) == null) {
-    console.error('没有找到对应 generator')
-    process.exit(1)
-  }
-
-  currentGenerator = generatorMap.get(generatorName) as IEchoorcConfig
-  return currentGenerator
-}
-
-// #endregion
-
-const echooAPI = {
-  getForce,
-  setForce,
-  setEchoorcFilePath,
-  getEchoorcFilePath,
-  getGeneratorMap,
-  setGeneratorMap,
-  getCurrentGenerator,
-  setCurrentGenerator
-}
+const configMap: TypedMap<IConfigMap> = new TypedMap({
+  echoorcFilePath: '',
+  generatorsMap: new Map() as Map<string, IEchoorcConfig>,
+  currentGenerator: currentGenerator,
+  actionList: [] as ActionsListItem[]
+})
 
 const externalEchooAPI = {
-  setGenerator: setGeneratorEffect
+  setGenerator
 }
 
 const effectEchooAPI = {
-  getConfigFilePathEffect,
-  setGeneratorEffect,
-  generatorFuncEffect,
-  createDispatchPrompt
+  getConfigFilePath,
+  setGenerator,
+  getConfigInfo,
+  selectGenerator,
+  handleData,
+  generateTemplate
 }
 
 export {
-  echooAPI,
   externalEchooAPI,
-  effectEchooAPI
+  effectEchooAPI,
+  configMap
 }

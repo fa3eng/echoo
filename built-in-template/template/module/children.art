@@ -1,0 +1,19 @@
+import React, { FC } from "react";
+
+import style from "./style.less";
+
+interface {{childrenName}}Props {
+  name: string;
+}
+
+const {{childrenName}}: FC<{{childrenName}}Props> = (props) => {
+  const { name } = props;
+
+  return (
+    <div className={style.wrapper}>
+      <p className="p">This children name is {`${name}`}</p>
+    </div>
+  );
+};
+
+export { {{childrenName}} };
