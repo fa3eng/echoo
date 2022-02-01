@@ -12,8 +12,7 @@
     "lint": "ts-standard --fix --verbose | snazzy",
     "prettier": "prettierx --check .",
     "build": "tsc",
-    "dev": "rm -fr dist && tsc",
-    "devx": "tsnd --respawn ./src/cli.ts",
+    "dev": "rm -rf ./dist && tsc -w",
     "preStart": "tsc",
     "start": "npm link"
   },
