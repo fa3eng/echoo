@@ -23,12 +23,11 @@ const publicCheck = function (
     [
       'type',
       {
-        isEmpty: (
+        isEmpty:
           // eslint-disable-next-line no-prototype-builtins
           !target.hasOwnProperty('type') &&
           target.type !== 'add' &&
-          target.type !== 'append'
-        ),
+          target.type !== 'append',
         msg: `出错的 Generator 名为 ${name}, actions type 必须设置为 add 或者 append`
       }
     ],

@@ -17,7 +17,10 @@ const ignoreDir: Record<string, boolean> = {
  * 2. path 是 ignoreDir 中包含的文件夹
  * 3. path 是 以.开头的文件夹
  */
-const shouldIgnore = function (path: string, ignoreDir: Record<string, boolean>): boolean {
+const shouldIgnore = function (
+  path: string,
+  ignoreDir: Record<string, boolean>
+): boolean {
   const dirName = ps.basename(path)
 
   if (!fs.statSync(path).isDirectory()) return false
@@ -35,7 +38,10 @@ const shouldIgnore = function (path: string, ignoreDir: Record<string, boolean>)
  * @param configName 配置文件的名字,不需要后缀
  * @returns 若配置文件存在返回配置文件的绝对路径, 若不存在则返回空字符串
  */
-const searchConfigFilePath = function (basePath: string, configName: string): string {
+const searchConfigFilePath = function (
+  basePath: string,
+  configName: string
+): string {
   // Closure variables
   let flag = false
   let result = ''
@@ -75,7 +81,4 @@ const searchConfigFilePath = function (basePath: string, configName: string): st
   return result
 }
 
-export {
-  shouldIgnore,
-  searchConfigFilePath
-}
+export { shouldIgnore, searchConfigFilePath }

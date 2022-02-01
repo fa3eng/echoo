@@ -2,7 +2,6 @@
   "name": "dev-environment",
   "version": "1.0.0",
   "description": "dev environment",
-  "main": "index.js",
   "type": "module",
   "bin": {
     "ech": "bin/index.js"
@@ -10,10 +9,12 @@
   "types": "dist/types/cli.d.ts",
   "scripts": {
     "format": "ts-standard --fix",
-    "build": "ts-standard --fix && tsc",
+    "lint": "ts-standard --fix --verbose | snazzy",
+    "prettier": "prettierx --check .",
+    "build": "tsc",
     "dev": "rm -fr dist && tsc",
-    "postbuild": "echo is ok",
-    "prestart": "npm run build",
+    "devx": "tsnd --respawn ./src/cli.ts",
+    "preStart": "tsc",
     "start": "npm link"
   },
   "keywords": [],
@@ -23,14 +24,13 @@
     "@commitlint/cli": "^16.0.0",
     "@commitlint/config-conventional": "^16.0.0",
     "@types/inquirer": "^8.1.3",
+    "chokidar": "^3.5.3",
     "husky": "^7.0.4",
-    "lint-staged": "^12.1.4",
+    "prettierX": "^0.19.0",
+    "snazzy": "^9.0.0",
     "ts-node-dev": "^1.1.8",
     "ts-standard": "^11.0.0",
     "typescript": "^4.6.0-dev.20220123"
-  },
-  "lint-staged": {
-    "src/*": "npm run format"
   },
   "engines": {
     "node": ">=14.17.4"
@@ -41,5 +41,13 @@
     "commander": "^8.3.0",
     "inquirer": "^8.2.0",
     "ora": "^6.0.1"
+  },
+  "ts-standard": {
+    "ignore": [
+      "dist",
+      "built-in-template",
+      ".vscode",
+      ".husky"
+    ]
   }
 }

@@ -41,7 +41,10 @@ const checkConfig = function (config: any): any {
       flag = true
     }
 
-    if (key === 'actions' && !(Array.isArray(value) || typeof value === 'function')) {
+    if (
+      key === 'actions' &&
+      !(Array.isArray(value) || typeof value === 'function')
+    ) {
       const name = errorMap.get('name') as 'string'
 
       logError(

@@ -40,8 +40,4 @@ const effectEchooAPI = {
   generateTemplate
 }
 
-export {
-  externalEchooAPI,
-  effectEchooAPI,
-  configMap
-}
+export { externalEchooAPI, effectEchooAPI, configMap }

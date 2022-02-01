@@ -2,9 +2,7 @@ import { IEchoorcConfig } from '../../types/index.js'
 import { externalEchooAPI, configMap } from '../index.js'
 import { checkConfig } from './checkError/index.js'
 
-const getConfigInfo = async function (
-  echoorcFilePath: string
-): Promise<void> {
+const getConfigInfo = async function (echoorcFilePath: string): Promise<void> {
   if (echoorcFilePath === '') {
     console.error('路径不合法或者配置文件不存在')
     process.exit(1)

@@ -1,0 +1,8 @@
+# build
+dist
+node_modules
+
+# config
+built-in-template
+.vscode
+tsconfig.json

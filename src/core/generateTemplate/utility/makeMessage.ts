@@ -16,7 +16,10 @@ const makeInfoMessage = function (
   return `${color(`[${item.count}] ${message}:`)} ${item.description}`
 }
 
-const makeErrorMessage = function (type: 'add' | 'append', item: ActionsListItem): string {
+const makeErrorMessage = function (
+  type: 'add' | 'append',
+  item: ActionsListItem
+): string {
   const message = new Map([
     ['add', '所创建的文件已经存在'],
     ['append', '所要修改的目标文件不存在']

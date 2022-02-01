@@ -10,10 +10,7 @@ const {
 } = effectEchooAPI
 
 const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
-  const {
-    externalTemplates = false,
-    configurationPath = ''
-  } = optionsConfig
+  const { externalTemplates = false, configurationPath = '' } = optionsConfig
 
   // 1. 获取配置文件路径, 并将配置文件路径存入 configMap
   getConfigFilePath(externalTemplates, configurationPath)

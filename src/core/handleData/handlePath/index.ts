@@ -3,7 +3,7 @@ import ps from 'path'
 import { configMap } from '../../index.js'
 
 const handlePath = function (actionList: ActionsListItem[]): ActionsListItem[] {
-  const actionResult = actionList.map(item => {
+  const actionResult = actionList.map((item) => {
     const { path, templatePath } = item
     const path_ = handlePathData(path)
     const templatePath_ = handlePathData(templatePath)
@@ -25,9 +25,12 @@ const handlePathData = function (path: string): string {
   const firstChar = path[0]
 
   switch (firstChar) {
-    case '/': return path
-    case '.': return ps.join(echoorcFileDirPath, path)
-    default: return ps.join(process.cwd(), path)
+    case '/':
+      return path
+    case '.':
+      return ps.join(echoorcFileDirPath, path)
+    default:
+      return ps.join(process.cwd(), path)
   }
 }
 

@@ -5,8 +5,9 @@ class TypedMap<T = {}> {
     this.data = data
   }
 
-  set<K extends PropertyKey, V extends (K extends keyof T ? T[K] : any)>(
-    key: K, value: V
+  set<K extends PropertyKey, V extends K extends keyof T ? T[K] : any>(
+    key: K,
+    value: V
   ): asserts this is TypedMap<T & { [k in K]: V }> {
     this.data = {
       ...this.data,

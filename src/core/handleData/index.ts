@@ -12,9 +12,7 @@ const handleData = async function (
   const { name, actions } = currentGenerator
 
   // action 的值存在两种情况 1. 返回值是一个数组的函数 2. 数组
-  const actionsArray = Array.isArray(actions)
-    ? actions
-    : actions(data)
+  const actionsArray = Array.isArray(actions) ? actions : actions(data)
 
   checkData(actionsArray, name)
 

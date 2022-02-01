@@ -5,9 +5,15 @@ import { IOptionsConfig } from './types/index.js'
 const program = new Command()
 
 program
-  .option('-f, --force', 'Force a file to be generated, even though the file may already exist in the current path')
+  .option(
+    '-f, --force',
+    'Force a file to be generated, even though the file may already exist in the current path'
+  )
   .option('-e, --external-templates', 'Using external templates')
-  .option('-p, --configuration-path <path>', 'Specifies the absolute path to the configuration file')
+  .option(
+    '-p, --configuration-path <path>',
+    'Specifies the absolute path to the configuration file'
+  )
 
 program.parse()
 
