@@ -10,7 +10,7 @@
   "scripts": {
     "format": "ts-standard --fix",
     "lint": "ts-standard --fix --verbose | snazzy",
-    "prettier": "prettierx --check .",
+    "prettier": "prettierx -w .",
     "build": "tsc",
     "dev": "rm -rf ./dist && tsc -w",
     "preStart": "tsc",
