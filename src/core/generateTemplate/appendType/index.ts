@@ -56,7 +56,6 @@ const appendType = function (
     ? pattern
     : new RegExp(`(?<=${pattern as string}\n)`)
 
-  console.log(pattern_)
   const fileContent = readFileSync(path).toString()
 
   makeBackUpFile(path, fileContent)

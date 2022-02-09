@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-
 import style from "./style.less";
 
 interface {{childrenName}}Props {
@@ -11,7 +10,7 @@ const {{childrenName}}: FC<{{childrenName}}Props> = (props) => {
 
   return (
     <div className={style.wrapper}>
-      <p className="p">This children name is {`${name}`}</p>
+      <p className="p">This children name is <span>{`${name}`}</span></p>
     </div>
   );
 };

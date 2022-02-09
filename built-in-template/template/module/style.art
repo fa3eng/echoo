@@ -1,4 +1,12 @@
 :local(.wrapper) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #282c34;
+  color: aliceblue;
+
   .h2 {
     color: aqua;
   }

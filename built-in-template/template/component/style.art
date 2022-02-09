@@ -11,9 +11,18 @@
     margin-bottom: 0;
   }
 
+  p {
+    margin: 0;
+  }
+
   .title {
     color: aqua;
   }
+
+  .meta {
+    color: yellow;
+  }
+
 
   .description{
     font-size: 18px;
