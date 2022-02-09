@@ -1,5 +1,27 @@
 :local(.wrapper) {
-  .h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #282c34;
+  color: aliceblue;
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  .title {
     color: aqua;
+  }
+
+  .description{
+    font-size: 18px;
+  }
+
+  .list {
+    >li {
+      margin-top: 10px;
+    }
   }
 }

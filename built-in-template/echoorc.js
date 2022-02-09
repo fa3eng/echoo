@@ -61,19 +61,13 @@ export function generator (gen) {
     }
   })
   gen({
-    name: 'luban-init-view(将自动配置一级路由)',
-    description: '创建 component',
+    name: '(luban) 创建新路由',
+    description: '创建新路由, 并引入相关页面',
     prompts: [
       {
         type: 'input',
         name: 'componentName',
         message: '请输入页面文件夹名称'
-      },
-      {
-        type: 'confirm',
-        name: 'isCss',
-        default: true,
-        message: '是否需要创建样式文件'
       },
       {
         type: 'confirm',
@@ -83,30 +77,36 @@ export function generator (gen) {
       }
     ],
     actions: data => {
-      const { componentName, isCss, isRematch } = data
+      const { componentName, isRematch } = data
       const actionsList = []
       const basePath = `src/views/${componentName}`
 
+      if(!componentName) {
+        throw Error('componentName的值不能为空')
+      }
+
       const createComponent = {
         type: 'add',
+        description: '[add] 新增模块',
         path: `${basePath}/index.tsx`,
         templatePath: './template/component/index.art',
         data: {
           componentName,
-          isCss,
           isRematch
         }
       }
 
       const createStyle = {
         type: 'add',
+        description: '[add] 新增模块样式',
         path: `${basePath}/style.less`,
         templatePath: './template/component/style.art'
       }
 
       const appendImport = {
         type: 'append',
-        pattern: /(?<=@echoo-router-import\n)/,
+        description: '[append] 添加路由 import 信息',
+        pattern: '@echoo-router-import',
         path: 'src/route/config.ts',
         templatePath: './template/router/import.art',
         data: {
@@ -116,6 +116,7 @@ export function generator (gen) {
 
       const appendRouter = {
         type: 'append',
+        description: '[append] 添加路由 config 信息',
         pattern: /(?<=@echoo-router-config\n)/,
         path: 'src/route/config.ts',
         templatePath: './template/router/config.art',
@@ -130,6 +131,7 @@ export function generator (gen) {
       const modelPath = 'src/models/index.ts'
       const createSlice = {
         type: 'add',
+        description: '[add] 新增模块 rematch slice',
         path: `${slicePath}/${componentName}.ts`,
         templatePath: './template/rematch/slice.art',
         data: {
@@ -139,6 +141,7 @@ export function generator (gen) {
 
       const appendSliceImport = {
         type: 'append',
+        description: '[append] 添加模块 rematch import 信息',
         pattern: /(?<=@echoo-rematch-import\n)/,
         path: modelPath,
         templatePath: './template/rematch/import.art',
@@ -149,6 +152,7 @@ export function generator (gen) {
 
       const appendSliceType = {
         type: 'append',
+        description: '[append] 添加模块 rematch type 信息',
         pattern: /(?<=@echoo-rematch-type\n)/,
         path: modelPath,
         templatePath: './template/rematch/type.art',
@@ -159,6 +163,7 @@ export function generator (gen) {
 
       const appendSliceExport = {
         type: 'append',
+        description: '[append] 添加模块 rematch export 信息',
         pattern: /(?<=@echoo-rematch-export\n)/,
         path: modelPath,
         templatePath: './template/rematch/export.art',
@@ -167,10 +172,10 @@ export function generator (gen) {
         }
       }
 
-      if (componentName) actionsList.push(createComponent)
-
-      if (isCss) actionsList.push(createStyle)
-
+      actionsList.push(createComponent)
+      actionsList.push(createStyle)
+      actionsList.push(appendRouter, appendImport)
+      
       if (isRematch) {
         actionsList.push(
           createSlice,
@@ -179,9 +184,6 @@ export function generator (gen) {
           appendSliceExport
         )
       }
-
-      actionsList.push(appendRouter, appendImport)
-
       return actionsList
     }
   })
