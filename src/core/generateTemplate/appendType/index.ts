@@ -24,6 +24,8 @@ const append = async function (
 
     appendType(path, resultString, spinner, item, pattern)
   } catch {
+    spinner.stop()
+
     const howOperation = await handleErrorPrompt('append', item)
 
     if (howOperation === 'abort') {
