@@ -52,8 +52,9 @@ const appendType = function (
   // pattern 支持自定义正则, 也允许用户使用默认规则 -> 定位到 pattern 字符串的下一行
   const pattern_ = isRegExp(pattern)
     ? pattern
-    : new RegExp(`/(?<=${pattern as string})\n/`)
+    : new RegExp(`(?<=${pattern as string}\n)`)
 
+  console.log(pattern_)
   const fileContent = readFileSync(path).toString()
 
   makeBackUpFile(path, fileContent)
