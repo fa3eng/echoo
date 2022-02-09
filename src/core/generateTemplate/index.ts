@@ -32,8 +32,10 @@ const generateTemplate = async function (): Promise<void> {
 
     // 只有当 add action 是覆盖文件的时候才会生成 backup
     if ((type === 'add' && item.isForce) || type === 'append') {
-      const backupPath = makeBackupPath(item.path)
-      fs.rmSync(backupPath)
+      try {
+        const backupPath = makeBackupPath(item.path)
+        fs.rmSync(backupPath)
+      } catch (error) {}
     }
   }
 }
