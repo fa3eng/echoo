@@ -1,4 +1,6 @@
-# echoo（beta）
+# echoo
+
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 echoo，一个灵活的，可配置的模板生成 CLI 工具。
 
@@ -10,9 +12,9 @@ echoo，一个灵活的，可配置的模板生成 CLI 工具。
 
 echoo 内置了两款基于 [luban](https://1x.luban.fun/document/) 的 React 模板。你可以直接在一个基于 luban 的项目中使用 echoo。
 
-[![HYvxyT.gif](https://s4.ax1x.com/2022/02/10/HYvxyT.gif)](https://imgtu.com/i/HYvxyT)
+[![HNe0xS.gif](https://s4.ax1x.com/2022/02/10/HNe0xS.gif)](https://imgtu.com/i/HNe0xS)
 
-
+[![HNn2cT.gif](https://s4.ax1x.com/2022/02/10/HNn2cT.gif)](https://imgtu.com/i/HNn2cT)
 
 2. **灵活配置**
 
@@ -39,7 +41,7 @@ echoo 将会在 `process.cwd()` 目录中生成以下文件
 
 ## 使用
 
-> 暂时不支持 npm 等方式，单测、e2d、ci/cd 等流程还未完善
+> 目前不在 npm 中，需要在本地通过 npm link 使用
 
 1. clone 仓库
 
