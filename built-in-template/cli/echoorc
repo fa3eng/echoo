@@ -1,0 +1,31 @@
+export function generator (gen) {
+  gen({
+    name: 'first',
+    description: 'first generator',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'component name'
+      }
+    ],
+    actions: data => {
+      const { name } = data
+      const resultList = []
+
+      const component = {
+        type: 'add',
+        description: `[add] ${name} component`,
+        path: `${name}/index.tsx`,
+        templatePath: './echoo/component.art',
+        data: {
+          componentName: name
+        }
+      }
+
+      resultList.push(component)
+
+      return resultList
+    }
+  })
+}

@@ -1,5 +1,5 @@
 import { Command } from 'commander'
-import { gen } from './logic.js'
+import { gen, init } from './logic.js'
 import { IOptionsConfig } from './types/index.js'
 
 const program = new Command()
@@ -24,6 +24,13 @@ program
   .description('Generating a template file')
   .action(async () => {
     await gen(optionsConfig)
+  })
+
+program
+  .command('init')
+  .description('quick setup echoo')
+  .action(() => {
+    init()
   })
 
 program
