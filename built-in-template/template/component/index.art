@@ -1,32 +1,37 @@
 import React, { FC } from "react";
+import { EnhancedRouteComponentProps } from "luban-router/lib/definitions";
 {{if isRematch}}
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "@/store";
 {{/if}}
-
-{{if isCss}}
 import style from "./style.less";
-{{/if}}
 
-const {{componentName}}: FC = () => {
+const {{componentName}}: FC<EnhancedRouteComponentProps<{ name: string }>> = ({ meta }) => {
   {{if isRematch}} 
   const dispatch = useDispatch<Dispatch>();
-  const {  } = dispatch.{{componentName}};
-  const {  } = useSelector((state: RootState) => state.{{componentName}});
+  const { incrementAsync, increment } = dispatch.{{componentName}};
+  const { count } = useSelector((state: RootState) => state.{{componentName}});
   {{/if}}
   
   return (
-    {{if isCss}}
-      <div className={style.wrapper}>
-        <h2 className="h2">Hello Echoo</h2>
-        <p>This page is {{componentName}}</p>
-      </div>
-    {{else}}
+    <div className={style.wrapper}>
+      <h1 className="title">Route: {{componentName}}</h1>
+      <h1 className="meta"> meta value: {meta?.name}</h1>
+      <p className="description">echoo 为您自动引入了</p>
+      <ul className="list">
+        <li>样式文件</li>
+        <li>文件路由</li>
+        {{if isRematch}}<li>集中状态管理</li>{{/if}}
+      </ul>
+      {{if isRematch}}
+      <h2 className="title">rematch demo</h2>
       <div>
-        <h2>Hello Echoo</h2>
-        <p>This page is {{componentName}}, and no style</p>
+        <h3>count: {count}</h3>
+        <button onClick={() => increment({ count: 1 })}>同步+1</button>
+        <button onClick={() => incrementAsync({ count: 1 })}>异步+1</button>
       </div>
-    {{/if}}
+      {{/if}}
+    </div>
   );
 };
 

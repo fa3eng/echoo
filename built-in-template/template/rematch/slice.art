@@ -1,12 +1,12 @@
 import { createModel } from "@rematch/core";
-
+import { store } from "@/store";
 import { RootModel } from ".";
 
-interface StateType {
-  count: number
+interface StateI {
+  count: number;
 }
 
-const INIT_STATE: StateType = {
+const INIT_STATE: StateI =  {
   count: 0
 };
 
@@ -14,19 +14,24 @@ const {{componentName}} = createModel<RootModel>()({
   state: INIT_STATE,
 
   reducers: {
-    updateStoreData: (state: StateType, payload: Partial<StateType>): StateType => ({
+    increment(state: StateI, payload: StateI) {
+      return {
+        count: state.count + payload.count
+      };
+    },
+    updateStoreData: (state: StateI, payload: Partial<StateI>): StateI => ({
       ...state,
       ...payload,
     }),
   },
 
-  effects: (dispatch) => ({
-    async incrementAsync(payload: StateType, state) {
-      console.log("This is current root state", state);
+  effects: {
+    async incrementAsync(payload: StateI) {
+      const { increment } = store.dispatch.{{componentName}};
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      dispatch.Count.updateStoreData(payload);
+      increment(payload);
     },
-  }),
+  },
 });
 
 export { {{componentName}} };

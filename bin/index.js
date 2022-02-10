@@ -7,7 +7,4 @@ import { program } from '../dist/cli.js'
 const require = createRequire(import.meta.url)
 const { version } = require('../package.json')
 
-program
-  .name('echoo')
-  .version(version)
-  .parse()
+program.name('echoo').version(version).parse()

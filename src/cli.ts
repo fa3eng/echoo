@@ -1,13 +1,15 @@
 import { Command } from 'commander'
-import { gen } from './logic.js'
+import { gen, init } from './logic.js'
 import { IOptionsConfig } from './types/index.js'
 
 const program = new Command()
 
 program
-  .option('-f, --force', 'Force a file to be generated, even though the file may already exist in the current path')
   .option('-e, --external-templates', 'Using external templates')
-  .option('-p, --configuration-path <path>', 'Specifies the absolute path to the configuration file')
+  .option(
+    '-p, --configuration-path <path>',
+    'Specifies the absolute path to the configuration file'
+  )
 
 program.parse()
 
@@ -21,17 +23,10 @@ program
   })
 
 program
-  .command('version')
-  .description('View current version')
+  .command('init')
+  .description('quick setup echoo')
   .action(() => {
-    console.log('version')
-  })
-
-program
-  .command('help')
-  .description('View current version')
-  .action(() => {
-    console.log('help')
+    init()
   })
 
 export { program }

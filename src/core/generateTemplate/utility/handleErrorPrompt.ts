@@ -8,7 +8,10 @@ import { makeErrorMessage } from './makeMessage.js'
  * @param item
  * @returns
  */
-async function handleErrorPrompt (type: 'add' | 'append', item: ActionsListItem): Promise<any> {
+async function handleErrorPrompt (
+  type: 'add' | 'append',
+  item: ActionsListItem
+): Promise<any> {
   const choices = [
     {
       name: '取消命令 (此前的操作将会全部复原)',
@@ -21,11 +24,10 @@ async function handleErrorPrompt (type: 'add' | 'append', item: ActionsListItem)
   ]
 
   if (type === 'add') {
-    choices.push(
-      {
-        name: '强制生成 (会覆盖原来的原本文件的内容, 请考虑清楚)',
-        value: 'force'
-      })
+    choices.push({
+      name: '强制生成 (会覆盖原来的原本文件的内容, 请考虑清楚)',
+      value: 'force'
+    })
   }
 
   const { choicesResult } = await createListPrompt({

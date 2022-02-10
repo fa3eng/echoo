@@ -12,8 +12,8 @@ const abortOperation = function (): void {
   ])
 
   actionList
-    .filter(item => item.isUse)
-    .forEach(item => {
+    .filter((item) => item.isUse)
+    .forEach((item) => {
       const fn = map.get(item.type)
       if (fn == null) return
       fn(item)

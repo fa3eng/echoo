@@ -10,7 +10,7 @@ async function createListPrompt (
       .then((value: any) => {
         resolve(value)
       })
-      .catch(err => {
+      .catch((err) => {
         logError('inquirer 出现问题, 请检查配置文件')
         logError(err)
         process.exit(1)

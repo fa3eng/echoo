@@ -1,4 +1,5 @@
 import { configMap, effectEchooAPI } from './core/index.js'
+import { exportFile } from './init/index.js'
 import { IOptionsConfig } from './types/index.js'
 
 const {
@@ -10,10 +11,7 @@ const {
 } = effectEchooAPI
 
 const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
-  const {
-    externalTemplates = false,
-    configurationPath = ''
-  } = optionsConfig
+  const { externalTemplates = false, configurationPath = '' } = optionsConfig
 
   // 1. 获取配置文件路径, 并将配置文件路径存入 configMap
   getConfigFilePath(externalTemplates, configurationPath)
@@ -31,4 +29,8 @@ const gen = async function (optionsConfig: IOptionsConfig): Promise<void> {
   await generateTemplate()
 }
 
-export { gen }
+const init = function (): void {
+  exportFile()
+}
+
+export { gen, init }
