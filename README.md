@@ -59,7 +59,7 @@ npm start
 4. 开始使用 echoo
 
 ```
-Usage: echoo [options] [command]
+Usage: ech [options] [command]
 
 Options:
   -e, --external-templates         Using external templates
