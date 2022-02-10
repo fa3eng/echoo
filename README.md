@@ -1,6 +1,6 @@
 # echoo
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
 
 echoo，一个灵活的，可配置的模板生成 CLI 工具。
 
@@ -41,7 +41,8 @@ echoo 将会在 `process.cwd()` 目录中生成以下文件
 
 ## 使用
 
-> 目前不在 npm 中，需要在本地通过 npm link 使用
+> 目前不在 npm 中，需要在本地通过 npm link 使用。
+> 请在 macOS 环境下使用。
 
 1. clone 仓库
 
