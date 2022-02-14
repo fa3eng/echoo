@@ -1,6 +1,6 @@
 # echoo
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) ![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
 
 echoo，一个灵活的，可配置的模板生成 CLI 工具。
 
