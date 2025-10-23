@@ -2,6 +2,8 @@
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) ![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
 
+> 刚毕业的时候整的花活儿，纯玩具
+
 echoo，一个灵活的，可配置的模板生成 CLI 工具。
 
 不同于集成在脚手架中的 CLI，echoo 是一个独立的 CLI 工具，通过简单的配置，你就可以拥有一套自己的模板 CLI 。
